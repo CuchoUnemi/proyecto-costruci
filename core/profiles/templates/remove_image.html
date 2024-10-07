@@ -1,0 +1,76 @@
+{% extends 'components/base.html' %}
+{% load static %}
+
+{% block content %}
+<title>{% block title %} {{ title1 }} {% endblock title %}</title>
+<section class="dark:bg-principal mt-20">
+    <div class="flex flex-col items-center justify-center">
+        <span class="rounded-full bg-indigo-500 px-2 py-1 text-white uppercase text-sm">
+            {{ title1 }}
+        </span>
+    </div>
+    <div class="text-center" data-aos="fade" data-aos-delay="200">
+        <h1 class="dark:text-white text-4xl  text-center mt-6 font-black my-2">
+            {{ title2 }}
+        </h1>
+        <p class="dark:text-gray-400 text-center mt-6 text-lg font-light">
+            Visualice su información.
+        </p>
+    </div>
+    <form method="post" enctype="multipart/form-data" class="space-y-6 py-4">
+        {% csrf_token %}
+        <div class="flex justify-center mx-4 lg:mx-20" data-aos="fade">
+            <!-- Columna izquierda -->
+            <div class="bg-white dark:bg-secundario rounded-3xl flex flex-col justify-center items-center p-8"
+                 data-aos="fade-right" data-aos-delay="200">
+                <h2 class="dark:text-blue-300 text-2xl text-center mt-6 font-black my-2 mb-4">Perfil de Usuario</h2>
+                <div class="flex justify-between mx-4 lg:mx-20">
+                    <div class="w-[60%] text-center rounded-full overflow-hidden">
+                        <div id="imagenPreview">
+                            {% if user.get_image %}
+                            <img src="{{ user.get_image }}" class="mx-auto d-block rounded-full" alt="Foto de perfil"
+                                 style="width: 150px; height: 150px;">
+                            {% else %}
+                            <img src="{% static 'img/unemia.png'%}" class="mx-auto d-block rounded-full"
+                                 alt="Foto de perfil por defecto" style="width: 150px; height: 150px;">
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="dark:text-gray-400 text-center mt-6 text-lg font-light ">
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </div>
+                    <div class="w-[60%] text-center rounded-full overflow-hidden">
+                        <div id="imagenDefault">
+                            <img src="{% static 'img/usuario_anonimo.png'%}" class="mx-auto d-block rounded-full"
+                                 alt="Foto de perfil por defecto" style="width: 150px; height: 150px;">
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="text-center" data-aos="fade" data-aos-delay="200">
+                    <p class="dark:text-gray-400 text-center mt-6 text-lg font-light">
+                        ¿Quieres quitar la foto de perfil?
+                    </p>
+                    <p class="dark:text-gray-400 text-center mt-6 text-lg font-light">
+                        La foto anterior se eliminará y, en su lugar, se usará esta imagen.
+                    </p>
+                </div>
+                <div class="flex justify-between mx-4 lg:mx-20">
+                    <a class="text-blue-700 hover:text-blue-800 py-2 px-4 rounded-full border border-blue-700 hover:border-blue-800 flex items-center justify-center"
+                       href="{% url 'profiles:auth_update_profile' %}">
+                        <i class="fa-solid fa-file-pen mr-2"></i> Cancelar
+                    </a>
+
+                    <button type="submit"
+                            class="bg-blue-700 hover:bg-blue-800 text-white py-2 px-4 rounded-full flex items-center justify-center">
+                        <i class="fa-solid fa-eraser mr-2"></i> Eliminar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+</section>
+
+{% endblock content %}

@@ -1,0 +1,71 @@
+{% extends 'components/base.html' %}
+{% load static %}
+{% block content %}
+<title>{% block title %} {{ title1 }} {% endblock title %}</title>
+<!-- Include Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet">
+<div class="bg-gray-100 flex h-screen">
+    <!-- Left: Image -->
+    <div class="w-7/10 h-screen hidden lg:block">
+        <img src="{% static 'img/hero1.jpg' %}" alt="Signin" class="object-cover w-full h-full">
+    </div>
+    <!-- Right: Login Form -->
+    <div class="w-full lg:w-3/10 flex items-center justify-center lg:p-36 md:p-24 p-8 bg-white dark:bg-principal">
+        <div class="w-full max-w-md bg-white dark:bg-black p-8 rounded-lg shadow-lg">
+            <h1 class="text-3xl font-semibold mb-6 text-orange-500 dark:text-orange-300">{{ title2 }}</h1>
+            <p class="text-center my-4 font-bold text-xl text-gray-700 dark:text-gray-300 uppercase">¡Bienvenido de vuelta!</p>
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <!-- Username Input -->
+                <div class="mb-4">
+                    <label for="id_username" class="block text-blue-500 dark:text-blue-300 font-poppins text-lg font-bold">{{ form.username.label }}</label>
+                    <input type="text" id="id_username" name="username" class="w-full border border-gray-300 rounded-md py-2 px-3 text-gray-900 dark:bg-principal dark:border-gray-600 dark:text-white focus:outline-none focus:border-orange-500" placeholder="{{ form.username.label }}" required autocomplete="off">
+                </div>
+                <!-- Password Input -->
+                <div class="mb-4 relative">
+                    <label for="id_password" class="block text-blue-500 dark:text-blue-300 font-poppins text-lg font-bold">{{ form.password.label }}</label>
+                    <div class="relative">
+                        <input type="password" id="id_password" name="password" class="w-full border border-gray-300 rounded-md py-2 px-3 text-gray-900 dark:bg-principal dark:border-gray-600 dark:text-white focus:outline-none focus:border-orange-500 pr-10" placeholder="{{ form.password.label }}" required autocomplete="off">
+                        <button type="button" id="togglePassword" class="absolute inset-y-0 right-0 flex items-center pr-3 top-2">
+                            <i class="fas fa-eye text-gray-500 dark:text-gray-300"></i>
+                        </button>
+                    </div>
+                </div>
+                <!-- Remember Me Checkbox -->
+                <div class="mb-4 flex items-center">
+                    <input type="checkbox" id="remember" name="remember" class="text-orange-500">
+                    <label for="remember" class="text-gray-600 dark:text-gray-200 ml-2">Remember Me</label>
+                </div>
+                <!-- Forgot Password Link -->
+                <div class="mb-6 text-blue-500 dark:text-blue-300">
+                    <a href="{% url 'RecoverPassword:reset_password' %}" class="hover:underline">¿No recuerdas tu contraseña?</a>
+                </div>
+                <!-- Login Button -->
+                <button type="submit" class="bg-blue-500 hover:bg-blue-600 dark:bg-orange-500 dark:hover:bg-orange-600 text-white font-semibold rounded-md py-2 px-4 w-full">Iniciar Sesión</button>
+            </form>
+            <!-- Sign up Link -->
+            <div class="mt-6 text-blue-500 dark:text-orange-300 text-center font-poppins text-lg font-bold">
+                <a href="{% url 'LoginRegister:auth_signup' %}" class="hover:underline">Regístrate</a>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
+<script>
+    document.getElementById("togglePassword").addEventListener("click", function () {
+        var passwordInput = document.getElementById("id_password");
+        var icon = this.querySelector("i");
+        if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+            icon.classList.remove("fa-eye");
+            icon.classList.add("fa-eye-slash");
+        } else {
+            passwordInput.type = "password";
+            icon.classList.remove("fa-eye-slash");
+            icon.classList.add("fa-eye");
+        }
+    });
+</script>
+{% endblock content %}
+{% block navbar %}
+{% endblock navbar %}

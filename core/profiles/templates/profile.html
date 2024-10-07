@@ -1,0 +1,174 @@
+{% extends 'components/base.html' %}
+{% load static %}
+
+{% block content %}
+<title>{% block title %} {{ title1 }} {% endblock title %}</title>
+<section class="dark:bg-principal mt-20">
+    <div class="flex flex-col items-center justify-center">
+        <span class="rounded-full bg-indigo-500 px-3 py-1 text-white uppercase text-sm">
+            {{ title1 }}
+        </span>
+    </div>
+
+    <!-- Título principal y descripción -->
+    <div class="text-center mt-6" data-aos="fade" data-aos-delay="200">
+        <h1 class="dark:text-white text-4xl font-black my-4">{{ title2 }}</h1>
+        <p class="dark:text-gray-400 text-lg font-light">Visualice su información.</p>
+    </div>
+
+    <!-- Formulario -->
+    <form method="post" enctype="multipart/form-data" class="space-y-6 py-8">
+        {% csrf_token %}
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mx-4 lg:mx-20" data-aos="fade">
+
+            <!-- Columna izquierda: Perfil de Usuario -->
+            <div class="bg-white dark:bg-secundario rounded-xl flex flex-col justify-center items-center p-8 shadow-lg"
+                 data-aos="fade-right" data-aos-delay="200">
+                <h2 class="dark:text-blue-300 text-2xl font-bold mb-4">Perfil de Usuario</h2>
+                <div class="w-32 h-32 rounded-full overflow-hidden mb-4">
+                    <div id="imagenPreview">
+                        {% if user.get_image %}
+                        <img src="{{ user.get_image }}" class="w-full h-full object-cover rounded-full" alt="Foto de perfil">
+                        {% else %}
+                        <img src="{% static 'img/unemia.png' %}" class="w-full h-full object-cover rounded-full" alt="Foto de perfil por defecto">
+                        {% endif %}
+                    </div>
+                </div>
+                {% if user.get_image != '/static/img/usuario_anonimo.png' %}
+                <button id="openModal" type="button" class="bg-blue-700 hover:bg-blue-800 text-white py-2 px-4 rounded-full flex items-center justify-center mb-4">
+                    <i class="fa-solid fa-trash-alt mr-2"></i> Eliminar foto de perfil
+                </button>
+                {% endif %}
+            </div>
+
+            <!-- Columna derecha: Información del usuario -->
+            <div class="bg-white dark:bg-secundario rounded-xl p-8 shadow-lg flex flex-col justify-between" data-aos="fade-left" data-aos-delay="200">
+                <!-- Información del usuario en una fila -->
+                <div class="grid grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <p class="dark:text-gray-400 text-lg"><span class="text-orange-500 font-bold">Usuario:</span><br>
+                            {{ user.username }}
+                            {% if user.is_superuser %}
+                            <span class="dark:text-green-300 text-lg font-bold"> | Administrador</span>
+                            {% endif %}
+                        </p>
+                    </div>
+                    <div>
+                        <p class="dark:text-gray-400 text-lg"><span class="text-orange-500 font-bold">Nombres:</span><br>
+                            {{ user.first_name }} {{ user.last_name }}
+                        </p>
+                    </div>
+                </div>
+                <!-- Correo en una fila separada -->
+                <div class="mb-6">
+                    <p class="dark:text-gray-400 text-xl"><span class="text-orange-500 font-bold">Correo:</span><br>
+                        {% if user.email %}
+                        <a href="mailto:{{ user.email }}" class="text-blue-500">{{ user.email }}</a>
+                        {% else %}
+                        No Registrado
+                        {% endif %}
+                    </p>
+                </div>
+                <!-- Botones centrados -->
+                <div class="flex justify-center gap-4">
+                    <a class="bg-blue-700 hover:bg-blue-800 text-white py-3 px-6 rounded-full flex items-center justify-center"
+                       href="{% url 'profiles:auth_update_profile' %}">
+                        <i class="fa-solid fa-file-pen mr-2"></i> Actualizar Datos
+                    </a>
+                    <a class="bg-blue-700 hover:bg-blue-800 text-white py-3 px-6 rounded-full flex items-center justify-center"
+                       href="{% url 'profiles:auth_update_contra' %}">
+                        <i class="fa-solid fa-key mr-2"></i> Actualizar Contraseña
+                    </a>
+                </div>
+            </div>
+        </div>
+    </form>
+</section>
+
+<!-- Modal de confirmación -->
+<div id="confirmModal" class="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center hidden">
+    <div class="bg-white dark:bg-gray-800 rounded-3xl p-6 shadow-lg w-full max-w-lg relative">
+        <h2 class="dark:text-blue-300 text-2xl text-center mb-4 font-bold">Confirmar Eliminación</h2>
+        <p class="dark:text-gray-400 text-lg mb-6">¿Está seguro de que desea eliminar su foto de perfil? Esta acción no se puede deshacer.</p>
+
+        <!-- Imágenes en el modal con flecha en el centro -->
+        <div class="flex items-center justify-center space-x-8 mb-6 relative">
+            <div class="w-32 h-32 rounded-full overflow-hidden">
+                <div id="modalImagePreview">
+                    {% if user.get_image %}
+                    <img src="{{ user.get_image }}" class="w-full h-full object-cover rounded-full" alt="Foto de perfil">
+                    {% else %}
+                    <img src="{% static 'img/unemia.png' %}" class="w-full h-full object-cover rounded-full" alt="Foto de perfil por defecto">
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Flecha en el centro -->
+            <div class="absolute text-gray-500 text-3xl">
+                <i class="fa-solid fa-arrow-right"></i>
+            </div>
+
+            <div class="w-32 h-32 rounded-full overflow-hidden">
+                <div id="modalImageDefault">
+                    <img src="{% static 'img/usuario_anonimo.png' %}" class="w-full h-full object-cover rounded-full" alt="Foto de perfil por defecto">
+                </div>
+            </div>
+        </div>
+
+        <div class="flex justify-center gap-4 mb-6">
+            <button id="removeImage" class="bg-red-700 hover:bg-red-800 text-white py-2 px-4 rounded-full flex items-center justify-center">
+                <i class="fa-solid fa-trash-alt mr-2"></i> Eliminar
+            </button>
+            <button id="closeModal" class="bg-gray-500 hover:bg-gray-600 text-white py-2 px-4 rounded-full flex items-center justify-center">
+                <i class="fa-solid fa-times mr-2"></i> Cancelar
+            </button>
+        </div>
+
+        <!-- Botón de cerrar -->
+        <button id="closeModalIcon" class="absolute top-2 right-2 text-gray-500 hover:text-gray-800">
+            <i class="fa-solid fa-xmark text-2xl"></i>
+        </button>
+    </div>
+</div>
+
+<!-- JavaScript -->
+<script>
+    document.getElementById('openModal').addEventListener('click', function () {
+        document.getElementById('confirmModal').classList.remove('hidden');
+    });
+
+    document.getElementById('closeModal').addEventListener('click', function () {
+        document.getElementById('confirmModal').classList.add('hidden');
+    });
+
+    document.getElementById('closeModalIcon').addEventListener('click', function () {
+        document.getElementById('confirmModal').classList.add('hidden');
+    });
+
+    document.getElementById('removeImage').addEventListener('click', function () {
+        fetch("{% url 'profiles:auth_remove_image' %}", {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': '{{ csrf_token }}',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({})  // Enviar un cuerpo vacío para la solicitud POST
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Actualizar la vista de la imagen en la página
+                document.getElementById('imagenPreview').innerHTML = `
+                    <img src="{% static 'img/usuario_anonimo.png' %}" class="w-full h-full object-cover rounded-full" alt="Foto de perfil por defecto">
+                `;
+                document.getElementById('confirmModal').classList.add('hidden');
+                // Redirigir a la página de perfil o mostrar un mensaje de éxito
+                window.location.reload();  // Recargar la página
+            } else {
+                console.error('Error al eliminar la imagen.');
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,414 @@
+{% extends 'components/base.html' %}
+{% load static %}
+<title>{% block title %} {{ title1 }} {% endblock title %}</title>
+{% block content %}
+<style>
+    .chat_support {
+        display: none;
+    }
+</style>
+
+<!-- Features -->
+<div class="lg:col-span-6">
+    <div class="relative p-6 bg-white dark:bg-principal shadow-md">
+
+        <div id="general" class="flex items-start"> <!-- Alineación superior -->
+            <!-- Botón para ocultar/mostrar la barra lateral usando Preline Collapse
+            <button data-hs-collapse="#sidebar" aria-controls="sidebar"
+                    class="bg-orange-500 text-white p-2 rounded hover:bg-orange-600 dark:bg-orange-400 dark:hover:bg-orange-500 lg:hidden">
+                Toggle Historial
+            </button>-->
+
+            <!-- Barra lateral izquierda para mostrar los nombres de las sesiones -->
+            <div class="w-1/4 bg-gray-200 p-4 h-80 hs-collapse hidden lg:block overflow-y-auto mt-16">
+                <!-- Margen superior ajustado a 20px -->
+                <div class="flex items-center space-x-2">
+                    <h2 class="text-lg font-semibold">Historial de sesiones</h2>
+                    <!-- Botón de nuevo chat con tooltip -->
+                    <button class="relative group bg-white border border-gray-300 rounded-md p-2 hover:bg-gray-100 focus:ring focus:ring-gray-200"
+                            onclick="clearLocalStorage()">
+                        <!-- Ícono de chat -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-800 cursor-pointer" fill="none"
+                             viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                  d="M8 10h.01M12 10h.01M16 10h.01M9 16h6M21 12c0 4.418-3.582 8-8 8a7.963 7.963 0 01-4.917-1.684L3 20l1.684-4.917A7.963 7.963 0 013 12c0-4.418 3.582-8 8-8s8 3.582 8 8z"/>
+                        </svg>
+                        <!-- Texto que aparece al hacer hover (tooltip) -->
+                        <span class="absolute left-1/2 transform -translate-x-1/2 -translate-y-full bg-gray-800 text-white text-xs rounded py-1 px-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            Nuevo chat
+                        </span>
+                    </button>
+                </div>
+                <ul id="session-list">
+                    {% for session in chat_history %}
+                    <li class="relative mb-2">
+                        <button id="session-button-{{ session.session_id }}"
+                                class="text-left w-full text-sm font-semibold text-gray-800 hover:bg-gray-300 py-2 px-3 rounded"
+                                onclick="showMessages('{{ session.session_id }}')">
+                            {{ session.session_name }}
+                        </button>
+
+                        <!-- Menú de opciones -->
+                        <button class="absolute right-0 top-1/2 transform -translate-y-1/2 px-2 py-1 text-gray-600 hover:text-gray-800"
+                                onclick="toggleMenu(event, '{{ session.session_id }}')">
+                            &#x22EE; <!-- Ícono de tres puntos verticales -->
+                        </button>
+
+                        <!-- Menú desplegable con opciones -->
+                        <div id="menu-{{ session.session_id }}"
+                             class="hidden absolute right-0 mt-1 w-32 bg-black text-white py-2 px-3 rounded-lg shadow-lg z-10">
+                            <span class="block mb-1">Opciones</span>
+                            <button class="w-full text-red-600 font-semibold py-1 px-3 rounded hover:bg-red-700 hover:text-white"
+                                    onclick="deleteSession('{{ session.session_id }}')">
+                                Eliminar
+                            </button>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <!-- Contenedor del chat -->
+            <div id="chat-container" class="flex-grow max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
+                <!-- Header del Chatbot -->
+                <div class="flex items-center mb-4">
+                    <img src="{% static 'img/mmmmmmmmmmmmmmm.jpg' %}" alt="Avatar de UnemIA"
+                         class="w-10 h-10 rounded-full mr-3">
+                    <div>
+                        <h2 class="text-xl font-semibold text-gray-900 dark:text-gray-200">UnemIA</h2>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">Te proporcionaré información sobre UNEMI,
+                            ¿Cuál es tu pregunta?</p>
+                    </div>
+                </div>
+
+                <!-- Chatbox -->
+                <div id="chatbox" class="bg-gray-100 dark:bg-gray-900 p-4 h-96 overflow-y-auto rounded-lg">
+                    <!-- Mensaje de bienvenida del bot -->
+                    <div class="flex items-start mb-4">
+                        <img src="{% static 'img/mmmmmmmmmmmmmmm.jpg' %}" alt="Avatar de UnemIA"
+                             class="w-6 h-6 rounded-full mr-2">
+                        <div class="text-sm text-gray-500 dark:text-gray-400">¡Hola! ¿Cómo puedo ayudarte hoy?</div>
+                    </div>
+                </div>
+
+                <!-- Input para el mensaje y botón -->
+                <div class="mt-4 flex">
+                    <form id="chat-form" method="post" style="display: none;">
+                        {% csrf_token %}
+                    </form>
+
+                    <input id="chat-input" type="text"
+                           class="w-full p-3 border border-gray-300 dark:border-gray-700 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-orange-500 dark:focus:ring-orange-300"
+                           placeholder="Escribe tu mensaje...">
+                    <button id="send-button"
+                            class="py-3 px-4 bg-orange-500 text-white rounded-r-lg hover:bg-orange-600 dark:bg-orange-400 dark:hover:bg-orange-500">
+                        Enviar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- JavaScript para manejar el clic en la sesión
+<script>
+    function showMessages(sessionId) {
+        // Limpia el área de mensajes
+        const messageList = document.getElementById('message-list');
+        messageList.innerHTML = '';
+
+        // Encuentra la sesión en el historial de mensajes
+        const sessions = {
+        {
+            chat_history | safe
+        }
+    }
+        ;  // Usar el historial de chat del contexto
+        const session = sessions.find(s => s.session_id === sessionId);
+
+        // Si se encuentra la sesión, muestra los mensajes
+        if (session) {
+            session.messages.forEach(message => {
+                const li = document.createElement('li');
+                li.textContent = `${message.timestamp} - ${message.text}`;
+                li.classList.add('text-sm', 'text-gray-800', 'dark:text-gray-400', 'mb-1');
+                messageList.appendChild(li);
+            });
+        }
+    }
+</script> -->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const sendButton = document.getElementById('send-button');
+        const chatInput = document.getElementById('chat-input');
+        const chatbox = document.getElementById('chatbox');
+        let sessionId = null;  // Variable para almacenar el session_id
+
+        // Función para agregar un mensaje al chatbox
+        function addMessageToChatbox(messageHtml) {
+            chatbox.insertAdjacentHTML('beforeend', messageHtml);
+            chatbox.scrollTop = chatbox.scrollHeight;
+        }
+
+        // Cargar mensajes guardados en localStorage (para usuarios invitados)
+        if (localStorage.getItem('chatHistory')) {
+            chatbox.innerHTML = localStorage.getItem('chatHistory');
+            chatbox.scrollTop = chatbox.scrollHeight;
+        }
+
+        // Manejar el envío del mensaje
+        sendButton.addEventListener('click', () => {
+            sessionId = localStorage.getItem('sessionId') || null;
+            console.log('rrrrrrrrrrrrrrrrrr');
+            console.log(sessionId);
+            console.log('rrrrrrrrrrrrrrrrrr');
+            const message = chatInput.value.trim();
+            if (message !== '') {
+                // Mensaje del usuario
+                const userMessage = `
+                    <div class="flex justify-end mb-4">
+                        <div class="text-sm text-white bg-orange-500 dark:bg-orange-400 p-2 rounded-lg">${message}</div>
+                        <img src="{% static 'img/hero32.jpeg' %}" alt="Avatar de Usuario" class="w-6 h-6 rounded-full ml-2">
+                    </div>
+                `;
+                addMessageToChatbox(userMessage);
+
+                // Limpiar el input
+                chatInput.value = '';
+
+                // Mostrar indicador de "escribiendo..."
+                const typingIndicator = `
+                    <div id="typing-indicator" class="flex items-start mb-4">
+                        <img src="{% static 'img/mmmmmmmmmmmmmmm.jpg' %}" alt="Avatar de UnemIA" class="w-6 h-6 rounded-full mr-2">
+                        <div class="text-sm text-gray-500 dark:text-gray-400">UnemIA está escribiendo<span class="typing-dots">...</span></div>
+                    </div>
+                `;
+                addMessageToChatbox(typingIndicator);
+
+                // Enviar mensaje al chatbot
+                fetch('{% url "ChatBot:chatbot_api" %}', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+                    },
+                    body: JSON.stringify({
+                        message: message,
+                        new_session: sessionId === null,  // Si no hay sessionId, se crea una nueva sesión
+                        session_id: sessionId  // Se envía el session_id existente
+                    })
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        // Eliminar el indicador de "escribiendo..."
+                        document.getElementById('typing-indicator').remove();
+
+                        // Guardar el session_id si se ha creado o continuado una sesión
+                        if (data.session_id) {
+                            sessionId = data.session_id;  // Actualizar el sessionId
+                            console.log('DDDDDDDDDDDD');
+                            console.log(sessionId);
+                            console.log('DDDDDDDDDDDD');
+                            localStorage.setItem('sessionId', sessionId);
+
+
+                        }
+
+                        // Respuesta del bot
+                        const botMessage = `
+                        <div class="flex items-start mb-4">
+                            <img src="{% static 'img/mmmmmmmmmmmmmmm.jpg' %}" alt="Avatar de UnemIA" class="w-6 h-6 rounded-full mr-2">
+                            <div class="text-sm text-gray-500 dark:text-gray-400">${data.response}</div>
+                        </div>
+                    `;
+                        addMessageToChatbox(botMessage);
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        document.getElementById('typing-indicator').remove();
+                        const errorMessage = `
+                        <div class="flex items-start mb-4">
+                            <div class="text-sm text-gray-500 dark:text-gray-400">Lo siento, hubo un problema al procesar tu mensaje.</div>
+                        </div>
+                    `;
+                        addMessageToChatbox(errorMessage);
+                    });
+            }
+        });
+
+        // Manejar el evento 'Enter' en el campo de entrada
+        chatInput.addEventListener('keypress', (event) => {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                sendButton.click();
+            }
+        });
+    });
+</script>
+
+<!--- nose que hace el script  ronny --->
+<script>
+    $(document).ready(function () {
+        $('#btnCliente, #btnAdministrador, #btnModoInvitado').click(function (e) {
+            e.preventDefault();
+            $('#modal-home').addClass('hidden');
+
+            if (this.id === 'btnModoInvitado') {
+                Swal.fire({
+                    icon: 'warning',
+                    title: '<h2 class="dark-title">ADVERTENCIA</h2>',
+                    text: 'Para usar las funciones de nuestra aplicación, debe registrarse en nuestro sistema.',
+                    showCancelButton: true,
+                    confirmButtonText: 'Registrarse',
+                    cancelButtonText: 'Continuar con el modo invitado',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = "{% url 'LoginRegister:auth_login' %}";
+                    }
+                });
+            } else {
+                window.location.href = $(this).attr('href');
+            }
+        });
+    });
+</script>
+<!--- nose que hace el script  ronny --->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const tabButtons = document.querySelectorAll('.tab-button');
+        const tabTitles = document.querySelectorAll('.tab-title-text');
+
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                tabButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+            });
+        });
+    });
+</script>
+
+<!--- Para manejar la escritura del historial de los mensajes del chat bot --->
+<script>
+    // Al cargar la página, verifica si hay una sesión activa
+    document.addEventListener("DOMContentLoaded", function () {
+        const currentSessionId = localStorage.getItem('sessionId');
+        if (currentSessionId) {
+            showMessages(currentSessionId);  // Cargar mensajes de la sesión activa
+        }
+    });
+
+    function showMessages(sessionId) {
+        localStorage.setItem('sessionId', sessionId);
+        const apiUrl = `{% url 'ChatBot:get_session_messages' session_id=0 %}`;
+        const finalApiUrl = apiUrl.replace('0', sessionId);
+
+        console.log(`Cargando mensajes para la sesión: ${sessionId}`);
+        console.log('URL de la API:', finalApiUrl); // Verificar la URL
+
+        fetch(finalApiUrl)
+            .then(response => {
+                console.log('Respuesta del servidor:', response);
+                return response.json();
+            })
+            .then(data => {
+                if (data.session_id) {
+                    sessionId = data.session_id;
+                    console.log('--------------------');
+                    console.log(sessionId);
+                    localStorage.setItem('sessionId', sessionId);
+
+                }
+
+                console.log('Estructura de datos recibida:', data); // Verificar la estructura
+
+                const chatbox = document.getElementById('chatbox');
+                chatbox.innerHTML = '';
+
+                // Mensaje de bienvenida
+                chatbox.innerHTML += `
+                    <div class="flex items-start mb-4">
+                        <img src="{% static 'img/mmmmmmmmmmmmmmm.jpg' %}" alt="Avatar de UnemIA" class="w-6 h-6 rounded-full mr-2">
+                        <div class="text-sm text-gray-500 dark:text-gray-400">¡Hola! ¿Cómo puedo ayudarte hoy?</div>
+                    </div>
+                `;
+
+                // Cargar los mensajes
+                data.messages.forEach(message => {
+                    const isBot = message.sender === 'bot';
+                    console.log(`Cargando mensaje: ${message.text} (sender: ${message.sender})`); // Log del mensaje
+
+                    const messageHTML = isBot
+                        ? `
+                            <div class="flex items-start mb-4">
+                                <img src="{% static 'img/mmmmmmmmmmmmmmm.jpg' %}" alt="Avatar de UnemIA" class="w-6 h-6 rounded-full mr-2">
+                                <div class="text-sm text-gray-500 dark:text-gray-400">${message.text}</div>
+                            </div>
+                        `
+                        : `
+                            <div class="flex justify-end mb-4">
+                                <div class="text-sm text-white bg-orange-500 dark:bg-orange-400 p-2 rounded-lg">${message.text}</div>
+                                <img src="{% if user.get_image %}{{ user.get_image }}{% else %}{% static 'img/unemia.png' %}{% endif %}" alt="Avatar de Usuario" class="w-6 h-6 rounded-full ml-2">
+                            </div>
+                        `;
+
+                    chatbox.innerHTML += messageHTML;
+                });
+
+                chatbox.scrollTop = chatbox.scrollHeight;
+
+            })
+            .catch(error => {
+                console.error('Error al cargar los mensajes:', error);
+            });
+    }
+
+    // Función para mostrar/ocultar el menú desplegable
+    let openMenu = null; // Variable para rastrear el menú abierto
+
+    // Función para mostrar/ocultar el menú desplegable
+    function toggleMenu(event, sessionId) {
+        // Cierra el menú previamente abierto, si existe
+        if (openMenu && openMenu !== sessionId) {
+            document.getElementById(`menu-${openMenu}`).classList.add('hidden');
+        }
+
+        // Muestra o oculta el menú actual
+        const menu = document.getElementById(`menu-${sessionId}`);
+        const isHidden = menu.classList.toggle('hidden');
+
+        // Actualiza la variable openMenu
+        openMenu = isHidden ? null : sessionId; // Si está oculto, resetear openMenu, de lo contrario, guardar el ID
+    }
+
+
+    // Función para eliminar una sesión (aquí puedes agregar la lógica de eliminación)
+    function deleteSession(sessionId) {
+        if (confirm('¿Estás seguro de que quieres eliminar esta sesión?')) {
+            // Aquí puedes realizar una solicitud para eliminar la sesión del servidor o hacer lo que sea necesario
+            console.log(`Sesión ${sessionId} eliminada`);
+            // Lógica para eliminar la sesión de la interfaz
+        }
+    }
+
+</script>
+<!---  para elimianr eliminar el hisrial del localstore y cree nuenos chats---->
+<script>
+    // Función para limpiar el localStorage
+    function clearLocalStorage() {
+        localStorage.clear();  // Limpia todo el localStorage
+        const chatbox = document.getElementById('chatbox');  // Asegúrate de tener la referencia correcta
+        if (chatbox) {
+            chatbox.innerHTML = `
+            <div class="flex items-start mb-4">
+                <img src="{% static 'img/mmmmmmmmmmmmmmm.jpg' %}" alt="Avatar de UnemIA" class="w-6 h-6 rounded-full mr-2">
+                <div class="text-sm text-gray-500 dark:text-gray-400">¡Hola! ¿Cómo puedo ayudarte hoy?</div>
+            </div>
+        `;
+        }
+    }
+</script>
+
+</script>
+
+
+{% endblock content %}

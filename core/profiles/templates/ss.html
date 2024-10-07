@@ -1,0 +1,25 @@
+<form method="post" action="{% url 'profiles:auth_remove_image' %}">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Eliminar Foto de Perfil</button>
+</form>
+
+
+<div class="card">
+    <div class="image-container">
+        <img src="foto-actual.jpg" alt="Foto de perfil actual">
+    </div>
+    <div class="arrow">
+        →
+    </div>
+    <div class="image-container">
+        <img src="foto-nueva.jpg" alt="Foto de perfil predeterminada">
+    </div>
+    <div class="text">
+        ¿Quieres quitar la foto de perfil?
+        <p>
+            La foto anterior se eliminará y, en su lugar, se usará esta imagen.
+        </p>
+        <button class="cancel">Cancelar</button>
+        <button class="quitar">Quitar</button>
+    </div>
+</div>

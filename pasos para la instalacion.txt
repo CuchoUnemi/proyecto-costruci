@@ -1,0 +1,65 @@
+pip freeze# para ver librerias instaladas:
+ pip freeze > requirements.txt
+
+README para installar las dependencias deel proyecto en el entorno virtual
+pip install -r requirimientos.txt
+
+cree un super usuario con:
+python manage.py createsuperuser
+
+Ejecute el proyecto una vez activado el entorno virtual con
+py manage.py runserver
+--------------------------------------------------
+# Proyecto Django
+
+Este proyecto es una aplicación web desarrollada con Django. A continuación, se describen los pasos para instalar las dependencias, crear un superusuario y ejecutar el servidor localmente.
+
+## Requisitos previos
+
+- Python 3.12
+- pip
+- Entorno virtual (opcional, pero recomendado)
+
+## Instalación de dependencias
+
+Para instalar las dependencias del proyecto, sigue estos pasos:
+
+1. Clona el repositorio en tu máquina local.
+2. Navega al directorio raíz del proyecto.
+3. (Opcional) Crea y activa un entorno virtual:
+    python -m venv venv
+   - En Linux/Mac:
+     ```bash
+     source venv/bin/activate
+     ```
+   - En Windows:
+     ```bash
+     venv\Scripts\activate
+     ```
+4. Asegúrate de que el archivo `requirements.txt`, que se encuentra en el repositorio clonado, esté en el directorio raíz del proyecto.
+5. Instala las dependencias usando el archivo `requirements.txt`:
+   ```bash
+   pip install -r requirements.txt
+
+
+## Crear superusuario
+
+Para crear un superusuario, ejecuta el siguiente comando:
+python manage.py createsuperuser
+
+Sigue las indicaciones para proporcionar el correo electrónico y la contraseña del administrador.
+
+## Ejecutar el servidor
+
+Una vez activado el entorno virtual y creado el superusuario, puedes ejecutar el servidor de desarrollo localmente:
+python manage.py runserver
+
+Luego, abre tu navegador y accede a http://127.0.0.1:8000.
+
+## Notas adicionales
+
+- Asegúrate de haber ejecutado las migraciones antes de iniciar el servidor:
+  python manage.py migrate
+
+- Si deseas más información sobre el proyecto o tienes problemas, revisa la documentación oficial de Django en https://docs.djangoproject.com/.
+

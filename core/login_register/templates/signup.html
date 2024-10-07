@@ -1,0 +1,118 @@
+{% extends 'components/base.html' %}
+{% load static %}
+
+{% block content %}
+<title>{% block title %} {{ title1 }} {% endblock title %}</title>
+<!-- Include Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet">
+<div class="bg-gray-100 flex h-screen flex-row-reverse">
+    <!-- Right: Image -->
+    <div class="w-7/10 h-screen hidden lg:block">
+        <img src="{% static 'img/hero32.jpeg' %}" alt="Signin" class="object-cover w-full h-full">
+    </div>
+    <!-- Left: Registration Form -->
+    <div class="w-full lg:w-3/10 flex items-center justify-center lg:p-36 md:p-24 p-8 bg-white dark:bg-principal">
+        <div class="w-full max-w-4xl bg-white dark:bg-black p-8 rounded-lg shadow-lg">
+            <h1 class="text-3xl font-semibold mb-6 text-orange-500 dark:text-orange-300">{{ title2 }}</h1>
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                    <!-- Username -->
+                    <div class="mb-4">
+                        <label for="id_username" class="block text-blue-500 dark:text-blue-300 font-poppins text-lg font-bold">{{ form.username.label }}</label>
+                        <input type="text" id="id_username" name="username" class="w-full border border-gray-300 rounded-md py-2 px-3 text-gray-900 dark:bg-principal dark:border-gray-600 dark:text-white focus:outline-none focus:border-orange-500" value="{{ form.username.value|default_if_none:'' }}" placeholder="{{ form.username.label }}" required>
+                    </div>
+                    <!-- First Name -->
+                    <div class="mb-4">
+                        <label for="id_first_name" class="block text-blue-500 dark:text-blue-300 font-poppins text-lg font-bold">{{ form.first_name.label }}</label>
+                        <input type="text" id="id_first_name" name="first_name" class="w-full border border-gray-300 rounded-md py-2 px-3 text-gray-900 dark:bg-principal dark:border-gray-600 dark:text-white focus:outline-none focus:border-orange-500" value="{{ form.first_name.value|default_if_none:'' }}" placeholder="{{ form.first_name.label }}" required>
+                    </div>
+                    <!-- Last Name -->
+                    <div class="mb-4">
+                        <label for="id_last_name" class="block text-blue-500 dark:text-blue-300 font-poppins text-lg font-bold">{{ form.last_name.label }}</label>
+                        <input type="text" id="id_last_name" name="last_name" class="w-full border border-gray-300 rounded-md py-2 px-3 text-gray-900 dark:bg-principal dark:border-gray-600 dark:text-white focus:outline-none focus:border-orange-500" value="{{ form.last_name.value|default_if_none:'' }}" placeholder="{{ form.last_name.label }}" required>
+                    </div>
+                    <!-- Email -->
+                    <div class="mb-4">
+                        <label for="id_email" class="block text-blue-500 dark:text-blue-300 font-poppins text-lg font-bold">{{ form.email.label }}</label>
+                        <input type="email" id="id_email" name="email" class="w-full border border-gray-300 rounded-md py-2 px-3 text-gray-900 dark:bg-principal dark:border-gray-600 dark:text-white focus:outline-none focus:border-orange-500" value="{{ form.email.value|default_if_none:'' }}" placeholder="{{ form.email.label }}" required>
+                    </div>
+                </div>
+                <!-- Password Fields -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                    <!-- Password -->
+                    <div class="mb-4 relative">
+                        <label for="id_password1" class="block text-blue-500 dark:text-blue-300 font-poppins text-lg font-bold">{{ form.password1.label }}</label>
+                        <div class="relative">
+                            <input type="password" id="id_password1" name="password1" class="w-full border border-gray-300 rounded-md py-2 px-3 text-gray-900 dark:bg-principal dark:border-gray-600 dark:text-white focus:outline-none focus:border-orange-500 pr-10" placeholder="{{ form.password1.label }}" required aria-describedby="passwordHelp" autocomplete="off">
+                            <!-- Ícono de 'ojo' dentro del campo input -->
+                            <button type="button" id="togglePassword1" aria-label="Mostrar contraseña" class="absolute inset-y-0 right-0 flex items-center pr-3 top-1/2 transform -translate-y-1/2">
+
+                            </button>
+                            <small id="passwordHelp" class="text-gray-600 dark:text-gray-400">Usa al menos 8 caracteres, incluyendo números y letras.</small>
+                        </div>
+                    </div>
+                    <!-- Confirm Password -->
+                    <div class="mb-4 relative">
+                        <label for="id_password2" class="block text-blue-500 dark:text-blue-300 font-poppins text-lg font-bold">{{ form.password2.label }}</label>
+                        <div class="relative">
+                            <input type="password" id="id_password2" name="password2" class="w-full border border-gray-300 rounded-md py-2 px-3 text-gray-900 dark:bg-principal dark:border-gray-600 dark:text-white focus:outline-none focus:border-orange-500 pr-10" placeholder="{{ form.password2.label }}" required aria-describedby="passwordHelp2" autocomplete="off">
+                            <!-- Ícono de 'ojo' dentro del campo input -->
+                            <button type="button" id="togglePassword2" aria-label="Mostrar contraseña" class="absolute inset-y-0 right-0 flex items-center pr-3 top-1/2 transform -translate-y-1/2">
+
+                            </button>
+                            <small id="passwordHelp2" class="text-gray-600 dark:text-gray-400">Confirma tu contraseña.</small>
+                        </div>
+                    </div>
+                </div>
+                <!-- Submit Button -->
+                <button type="submit" class="bg-blue-500 hover:bg-blue-600 dark:bg-orange-500 dark:hover:bg-orange-600 text-white font-semibold rounded-md py-2 px-4 w-full mt-4">Registrarse</button>
+            </form>
+            <p class="text-blue-500 dark:text-orange-300 text-center mt-3">
+                ¿Ya tienes una cuenta? <a href="{% url 'LoginRegister:auth_login' %}" class="hover:underline">Inicia Sesión</a>
+            </p>
+        </div>
+    </div>
+</div>
+
+<script>
+    function togglePasswordVisibility(inputId, buttonId) {
+        const input = document.getElementById(inputId);
+        const button = document.getElementById(buttonId);
+        const icon = button.querySelector("i");
+
+        // Mostrar el botón de 'ojito' solo si hay texto en el campo
+        input.addEventListener('input', function () {
+            if (input.value.length > 0) {
+                button.classList.remove("hidden");
+            } else {
+                button.classList.add("hidden");
+            }
+        });
+
+        // Cambiar entre mostrar/ocultar la contraseña
+        button.addEventListener("click", function () {
+            if (input.type === "password") {
+                input.type = "text";
+                icon.classList.remove("fa-eye");
+                icon.classList.add("fa-eye-slash");
+            } else {
+                input.type = "password";
+                icon.classList.remove("fa-eye-slash");
+                icon.classList.add("fa-eye");
+            }
+        });
+    }
+
+    // Desactivar autocompletar y icono nativo del navegador en campos de contraseña
+    document.getElementById("id_password1").setAttribute("autocomplete", "off");
+    document.getElementById("id_password2").setAttribute("autocomplete", "off");
+
+    // Inicializar los campos de contraseña
+    togglePasswordVisibility("id_password1", "togglePassword1");
+    togglePasswordVisibility("id_password2", "togglePassword2");
+</script>
+{% endblock content %}
+
+{% block navbar %}
+{% endblock navbar %}
