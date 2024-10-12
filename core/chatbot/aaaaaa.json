@@ -1,0 +1,29 @@
+{
+    "intents": [
+        {
+            "tag": "saludo",
+            "patterns": [
+                "hola",
+                "qué tal",
+
+            ],
+            "responses": [
+                "¡Hola! ¿Cómo puedo asistirte con la información de UNEMI hoy?",
+                "Buenos días, ¿en qué puedo ayudarte con respecto a UNEMI?",
+
+            ]
+        },
+        {
+            "tag": "nombre",
+            "patterns": [
+                "cómo es tu nombre",
+
+            ],
+            "responses": [
+                "Me llamo UNEMI-IA, y estoy aquí para ayudarte con información sobre UNEMI.",
+
+            ]
+        }
+
+    ]
+}
