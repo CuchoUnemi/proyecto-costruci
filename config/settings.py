@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     'core.login_register.apps.LoginRegisterConfig',
     'core.profiles.apps.ProfilesConfig',
     'core.recover_password.apps.RecoverPasswordConfig',
-
+    'core.webscraping.apps.WebscrapingConfig',
     # Aplicaciones de terceros
     'tailwind',
     'theme',

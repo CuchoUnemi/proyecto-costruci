@@ -1,0 +1,86 @@
+[
+  {
+    "nombre": "Software",
+    "enlace": "https://www.unemi.edu.ec/index.php/carreras-presencial/ingenieria-de-software/"
+  },
+  {
+    "nombre": "Arquitectura Sostenible",
+    "enlace": "https://www.unemi.edu.ec/index.php/carreras-presencial/arquitectura-sostenible/"
+  },
+  {
+    "nombre": "Biotecnología",
+    "enlace": "https://www.unemi.edu.ec/index.php/carreras-presencial/biotecnologia/"
+  },
+  {
+    "nombre": "Industrial",
+    "enlace": "https://www.unemi.edu.ec/index.php/carreras-presencial/ingenieria-industrial/"
+  },
+  {
+    "nombre": "Ambiental",
+    "enlace": "https://www.unemi.edu.ec/index.php/carreras-presencial/ingenieria-ambiental/"
+  },
+  {
+    "nombre": "Alimentos",
+    "enlace": "https://www.unemi.edu.ec/index.php/carreras-presencial/ingenieria-en-alimentos/"
+  },
+  {
+    "nombre": "Multimedia y Producción Audiovisual",
+    "enlace": "https://www.unemi.edu.ec/index.php/carreras-presencial/multimedia-y-produccion-audiovisual/"
+  },
+  {
+    "nombre": "Administración de Empresas",
+    "enlace": "https://www.unemi.edu.ec/index.php/carreras-presencial/administracion-de-empresas/"
+  },
+  {
+    "nombre": "Contabilidad y Auditoría",
+    "enlace": "https://www.unemi.edu.ec/index.php/carreras-presencial/contabilidad-y-auditoria/"
+  },
+  {
+    "nombre": "Turismo",
+    "enlace": "https://www.unemi.edu.ec/index.php/pedi-2018-2021/licenciatura-en-turismo/"
+  },
+  {
+    "nombre": "Comunicación",
+    "enlace": "https://www.unemi.edu.ec/index.php/carreras-presencial/licenciatura-en-comunicacion/"
+  },
+  {
+    "nombre": "Economía",
+    "enlace": "https://www.unemi.edu.ec/index.php/carreras-presencial/economia/"
+  },
+  {
+    "nombre": "Enfermería",
+    "enlace": "https://www.unemi.edu.ec/index.php/carreras-presencial/licenciatura-en-enfermeria/"
+  },
+  {
+    "nombre": "Nutrición y Dietética",
+    "enlace": "https://www.unemi.edu.ec/index.php/carreras-presencial/licenciatura-en-nutricion-y-dietetica/"
+  },
+  {
+    "nombre": "Fisioterapia",
+    "enlace": "https://www.unemi.edu.ec/index.php/carreras-presencial/licenciatura-en-fisioterapia/"
+  },
+  {
+    "nombre": "Medicina",
+    "enlace": "https://www.unemi.edu.ec/index.php/carreras-presencial/medicina/"
+  },
+  {
+    "nombre": "Pedagogía de la Actividad Física y Deporte",
+    "enlace": "https://www.unemi.edu.ec/index.php/carreras-presencial/pedagogia-de-la-actividad-fisica-y-deporte/"
+  },
+  {
+    "nombre": "Educación",
+    "enlace": "https://www.unemi.edu.ec/index.php/carreras-presencial/licenciatura-en-educacion/"
+  },
+  {
+    "nombre": "Pedagogía de los Idiomas Nacionales y Extranjeros",
+    "enlace": "https://www.unemi.edu.ec/index.php/carreras-presencial/pedagogia-de-los-idiomas-nacionales-y-extranjeros/"
+  },
+  {
+    "nombre": "Educación Especial",
+    "enlace": "https://www.unemi.edu.ec/index.php/carreras-presencial/educacion-especial/"
+  },
+  {
+    "nombre": "Pedagogía de la Lengua y Literatura",
+    "enlace": "https://www.unemi.edu.ec/index.php/carreras-presencial/pedagogia-de-la-lengua-y-literatura/"
+  }
+]
