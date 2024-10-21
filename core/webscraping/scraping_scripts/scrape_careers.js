@@ -23,7 +23,8 @@ const fs = require('fs');
                     const link = li.querySelector('a'); // Seleccionar solo la primera etiqueta <a>
                     return link ? {
                         nombre: link.textContent.trim(),
-                        enlace: link.href
+                        enlace: link.href,
+                        modalidad: 'Presencial'
                     } : null;
                 }).filter(carrera => carrera !== null); // Filtrar elementos nulos
             });
@@ -60,7 +61,8 @@ const fs = require('fs');
                     if (nombreCarrera && enlaceCarrera) {
                         return {
                             nombre: nombreCarrera,
-                            enlace: enlaceCarrera
+                            enlace: enlaceCarrera,
+                            modalidad: 'Semipresencial'
                         };
                     }
                 }).filter(Boolean); // Filtrar los valores nulos o no definidos
@@ -94,7 +96,8 @@ const fs = require('fs');
                     if (nombreCarrera && enlaceCarrera) {
                         return {
                             nombre: nombreCarrera,
-                            enlace: enlaceCarrera
+                            enlace: enlaceCarrera,
+                            modalidad: 'En Línea'
                         };
                     }
                 }).filter(Boolean); // Filtrar los valores nulos o no definidos
