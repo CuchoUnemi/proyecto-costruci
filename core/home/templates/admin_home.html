@@ -38,7 +38,7 @@
                             </span>
                         </button>
                     </nav>
-
+                    
                     <!-- Buttons to update chart and chatbot -->
                     <div class="flex justify-center gap-4 mt-10"> <!-- Increased margin-top here -->
                         <!-- Button to update chart -->
@@ -60,11 +60,9 @@
                         <div id="tabs-with-card-1" role="tabpanel" aria-labelledby="tabs-with-card-item-1">
                             <!-- Title for the chart -->
                             <h3 class="text-xl font-semibold mb-4 text-center text-gray-800 dark:text-gray-200">Preguntas más frecuentes</h3>
-
+                            
                             <!-- Chart Placeholder -->
-                            <div class="h-[500px] md:h-[600px]"> <!-- Increased height of container here -->
-                                <canvas id="myChart" class="rounded-xl h-full"></canvas> <!-- Set canvas height to full -->
-                            </div>
+                            <div id="chart" class="h-[500px] md:h-[600px] rounded-xl"></div> <!-- Updated div for ApexCharts -->
                         </div>
                     </div>
                     <!-- End Tab Content -->
@@ -77,50 +75,57 @@
 
 <!-- Include Font Awesome -->
 <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-<!-- Include Chart.js -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<!-- Include ApexCharts -->
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 <script>
-    let myChart; // Declare the chart variable globally
+    let chart; // Declare the chart variable globally
 
-    function renderChart() {
-        const ctx = document.getElementById('myChart').getContext('2d');
-
-        if (myChart) {
-            // Destroy the previous chart instance if it exists
-            myChart.destroy();
+    function renderApexChart() {
+        // Destroy previous chart instance if it exists
+        if (chart) {
+            chart.destroy();
         }
 
-        // Create a new chart instance
-        myChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-                datasets: [{
-                    label: 'My First Dataset',
-                    data: [Math.random() * 100, Math.random() * 100, Math.random() * 100, Math.random() * 100, Math.random() * 100, Math.random() * 100, Math.random() * 100],
-                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                    borderColor: 'rgba(255, 99, 132, 1)',
-                    borderWidth: 1
-                }]
+        // Create a new chart using ApexCharts
+        chart = new ApexCharts(document.querySelector("#chart"), {
+            chart: {
+                type: 'area',
+                height: '100%'
             },
-            options: {
-                responsive: true,
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
+            series: [{
+                name: 'series1',
+                data: [31, 40, 28, 51, 42, 109, 100]
+            }, {
+                name: 'series2',
+                data: [11, 32, 45, 32, 34, 52, 41]
+            }],
+            xaxis: {
+                categories: ['22:00', '23:00', '00:00', '01:00', '02:00', '03:00', '04:00']
+            },
+            colors: ['#008FFB', '#00E396'],
+            stroke: {
+                curve: 'smooth'
+            },
+            fill: {
+                opacity: 0.3
+            },
+            title: {
+                text: 'Area Chart',
+                align: 'left'
             }
         });
+
+        // Render the chart
+        chart.render();
     }
 
     // Initialize the chart when the page loads
     document.addEventListener('DOMContentLoaded', function() {
-        renderChart();
+        renderApexChart();
 
         // Add event listener to the button to update the chart
         document.getElementById('updateChart').addEventListener('click', function() {
-            renderChart(); // Re-render the chart on button click
+            renderApexChart(); // Re-render the chart on button click
         });
 
         // Placeholder function for updating the chatbot
