@@ -2,7 +2,7 @@
 {% load static %}
 <title>{% block title %} {{ title1 }} {% endblock title %}</title>
 {% block content %}
-<div class="w-full bg-white dark:bg-principal bg-slate-100 pt-6"></div>
+<div class="w-full bg-white dark:bg-principal bg-slate-100 pt-15">
     <div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
         <div class="relative p-6 md:p-16 bg-primary dark:bg-principal">
             <!-- Grid -->
@@ -75,6 +75,68 @@
     </div>
 </div>
 
+<!-- Modal -->
+<div id="loadingModal" class="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center hidden">
+    <div class="bg-white dark:bg-gray-800 rounded-3xl p-6 shadow-lg w-full max-w-lg relative">
+        <div class="loader border-t-4 border-blue-500 border-solid rounded-full w-12 h-12 mb-4 animate-spin"></div>
+        <p class="dark:text-gray-400 text-lg mb-6">Actualizando chatbot, por favor espera...</p>
+    </div>
+</div>
+
+<!-- Modal de mensaje -->
+<div id="messageModal" class="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center hidden">
+    <div class="bg-white dark:bg-gray-800 rounded-3xl p-6 shadow-lg w-full max-w-lg relative">
+        <span id="messageText" class="dark:text-gray-400 text-lg mb-6"></span>
+        <div class="mt-4 text-center">
+            <button id="closeMessageModal" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md">Cerrar</button>
+        </div>
+    </div>
+</div>
+<!-- Modal de confirmación -->
+<div id="confirmModal" class="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center hidden">
+    <div class="bg-white dark:bg-gray-800 rounded-3xl p-6 shadow-lg w-full max-w-lg relative">
+        <h2 class="dark:text-blue-300 text-2xl text-center mb-4 font-bold">Confirmar Actualización</h2>
+        <p class="dark:text-gray-400 text-lg mb-6">¿Está seguro de que desea actualizar la información del chatbot? Esta acción no se puede deshacer.</p>
+
+        <div class="flex justify-center gap-4 mb-6">
+            <button id="confirmUpdate" class="bg-blue-700 hover:bg-blue-800 text-white py-2 px-4 rounded-full flex items-center justify-center">
+                <i class="fa-solid fa-check mr-2"></i> Confirmar
+            </button>
+            <button id="cancelUpdate" class="bg-gray-500 hover:bg-gray-600 text-white py-2 px-4 rounded-full flex items-center justify-center">
+                <i class="fa-solid fa-times mr-2"></i> Cancelar
+            </button>
+        </div>
+
+        <!-- Botón de cerrar -->
+        <button id="closeConfirmModalIcon" class="absolute top-2 right-2 text-gray-500 hover:text-gray-800">
+            <i class="fa-solid fa-xmark text-2xl"></i>
+        </button>
+    </div>
+</div>
+
+<!-- Estilos del loader -->
+<style>
+    .loader {
+        border: 4px solid #f3f3f3;
+        border-radius: 50%;
+        border-top: 4px solid #3498db;
+        width: 40px;
+        height: 40px;
+        -webkit-animation: spin 2s linear infinite;
+        animation: spin 2s linear infinite;
+    }
+
+    @-webkit-keyframes spin {
+        0% { -webkit-transform: rotate(0deg); }
+        100% { -webkit-transform: rotate(360deg); }
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+</style>
+
 <!-- Include Font Awesome -->
 <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 <!-- Include Chart.js -->
@@ -113,20 +175,66 @@
             }
         });
     }
-
-    // Initialize the chart when the page loads
-    document.addEventListener('DOMContentLoaded', function() {
-        renderChart();
-
-        // Add event listener to the button to update the chart
-        document.getElementById('updateChart').addEventListener('click', function() {
-            renderChart(); // Re-render the chart on button click
-        });
-
-        // Placeholder function for updating the chatbot
-        document.getElementById('updateChatbot').addEventListener('click', function() {
-            alert('El chatbot ha sido actualizado.');
-        });
+    
+    
+document.addEventListener('DOMContentLoaded', function() {
+    const loadingModal = document.getElementById('loadingModal');
+    const messageModal = document.getElementById('messageModal');
+    const messageText = document.getElementById('messageText');
+    const confirmModal = document.getElementById('confirmModal');
+    const confirmUpdateButton = document.getElementById('confirmUpdate');
+    const cancelUpdateButton = document.getElementById('cancelUpdate');
+    const closeConfirmModalIcon = document.getElementById('closeConfirmModalIcon');
+    const closeMessageModal = document.getElementById('closeMessageModal');
+    
+    // Mostrar modal de confirmación al hacer clic en el botón actualizar
+    document.getElementById('updateChatbot').addEventListener('click', function() {
+        confirmModal.classList.remove('hidden');
     });
+
+    // Función para cerrar el modal de confirmación
+    function closeConfirmModal() {
+        confirmModal.classList.add('hidden');
+    }
+
+    // Cerrar el modal de confirmación al hacer clic en cancelar o en la "X"
+    cancelUpdateButton.addEventListener('click', closeConfirmModal);
+    closeConfirmModalIcon.addEventListener('click', closeConfirmModal);
+
+    // Confirmar la actualización y proceder con el fetch
+    confirmUpdateButton.addEventListener('click', function() {
+        // Cerrar el modal de confirmación
+        closeConfirmModal();
+
+        // Mostrar el modal de carga
+        loadingModal.classList.remove('hidden');
+
+        // Realizar la petición al servidor
+        fetch('/webscraping/actualizar_chatbot/')
+            .then(response => response.json())
+            .then(data => {
+                // Configurar el mensaje de éxito
+                messageText.innerText = "El chatbot se ha actualizado exitosamente.";
+            })
+            .catch(error => {
+                // Configurar el mensaje de error
+                messageText.innerText = "Hubo un error al actualizar el chatbot. Por favor, inténtalo de nuevo.";
+            })
+            .finally(() => {
+                // Ocultar el modal de carga
+                loadingModal.classList.add('hidden');
+                // Mostrar el modal de mensaje
+                messageModal.classList.remove('hidden');
+            });
+    });
+
+    // Cerrar el modal de mensaje cuando se haga clic en "Cerrar"
+    closeMessageModal.addEventListener('click', function() {
+        messageModal.classList.add('hidden');
+    });
+});
+
+    
+
 </script>
 {% endblock %}

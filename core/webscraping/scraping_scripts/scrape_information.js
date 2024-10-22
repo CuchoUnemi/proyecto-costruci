@@ -8,7 +8,7 @@ const fs = require('fs').promises;
     // Función para leer el archivo JSON de cada modalidad
     async function leerArchivoJson(modalidad) {
         try {
-            const data = await fs.readFile(`carreras_${modalidad}.json`, 'utf-8');
+            const data = await fs.readFile(`core/webscraping/scraping_scripts/carreras_${modalidad}.json`, 'utf-8');
             // console.warn(JSON.parse(data))
             return JSON.parse(data);
         } catch (error) {
@@ -269,7 +269,7 @@ const fs = require('fs').promises;
 
         // Guardar los datos en un archivo JSON
         try {
-            await fs.writeFile('informacion_carreras.json', JSON.stringify(carrerasData, null, 2));
+            await fs.writeFile('core/webscraping/scraping_scripts/informacion_carreras.json', JSON.stringify(carrerasData, null, 2));
             console.log('Información de carreras guardada en "informacion_carreras.json".');
         } catch (error) {
             console.error(`Error al guardar la información de las carreras: ${error.message}`);
@@ -360,7 +360,7 @@ const fs = require('fs').promises;
 
             // Guardar los datos en un archivo JSON
             try {
-                await fs.writeFile('informacion_institucional.json', JSON.stringify(datosInstitucionales, null, 2));
+                await fs.writeFile('core/webscraping/scraping_scripts/informacion_institucional.json', JSON.stringify(datosInstitucionales, null, 2));
                 console.log('Información institucional guardada en "informacion_institucional.json".');
             } catch (error) {
                 console.error(`Error al guardar la información institucional: ${error.message}`);
