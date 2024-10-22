@@ -1,0 +1,107 @@
+[
+  {
+    "nombre": "Software",
+    "enlace": "https://www.unemi.edu.ec/index.php/carreras-presencial/ingenieria-de-software/",
+    "modalidad": "Presencial"
+  },
+  {
+    "nombre": "Arquitectura Sostenible",
+    "enlace": "https://www.unemi.edu.ec/index.php/carreras-presencial/arquitectura-sostenible/",
+    "modalidad": "Presencial"
+  },
+  {
+    "nombre": "Biotecnología",
+    "enlace": "https://www.unemi.edu.ec/index.php/carreras-presencial/biotecnologia/",
+    "modalidad": "Presencial"
+  },
+  {
+    "nombre": "Industrial",
+    "enlace": "https://www.unemi.edu.ec/index.php/carreras-presencial/ingenieria-industrial/",
+    "modalidad": "Presencial"
+  },
+  {
+    "nombre": "Ambiental",
+    "enlace": "https://www.unemi.edu.ec/index.php/carreras-presencial/ingenieria-ambiental/",
+    "modalidad": "Presencial"
+  },
+  {
+    "nombre": "Alimentos",
+    "enlace": "https://www.unemi.edu.ec/index.php/carreras-presencial/ingenieria-en-alimentos/",
+    "modalidad": "Presencial"
+  },
+  {
+    "nombre": "Multimedia y Producción Audiovisual",
+    "enlace": "https://www.unemi.edu.ec/index.php/carreras-presencial/multimedia-y-produccion-audiovisual/",
+    "modalidad": "Presencial"
+  },
+  {
+    "nombre": "Administración de Empresas",
+    "enlace": "https://www.unemi.edu.ec/index.php/carreras-presencial/administracion-de-empresas/",
+    "modalidad": "Presencial"
+  },
+  {
+    "nombre": "Contabilidad y Auditoría",
+    "enlace": "https://www.unemi.edu.ec/index.php/carreras-presencial/contabilidad-y-auditoria/",
+    "modalidad": "Presencial"
+  },
+  {
+    "nombre": "Turismo",
+    "enlace": "https://www.unemi.edu.ec/index.php/carreras-presencial/licenciatura-en-turismo/",
+    "modalidad": "Presencial"
+  },
+  {
+    "nombre": "Comunicación",
+    "enlace": "https://www.unemi.edu.ec/index.php/carreras-presencial/licenciatura-en-comunicacion/",
+    "modalidad": "Presencial"
+  },
+  {
+    "nombre": "Economía",
+    "enlace": "https://www.unemi.edu.ec/index.php/carreras-presencial/economia/",
+    "modalidad": "Presencial"
+  },
+  {
+    "nombre": "Enfermería",
+    "enlace": "https://www.unemi.edu.ec/index.php/carreras-presencial/licenciatura-en-enfermeria/",
+    "modalidad": "Presencial"
+  },
+  {
+    "nombre": "Nutrición y Dietética",
+    "enlace": "https://www.unemi.edu.ec/index.php/carreras-presencial/licenciatura-en-nutricion-y-dietetica/",
+    "modalidad": "Presencial"
+  },
+  {
+    "nombre": "Fisioterapia",
+    "enlace": "https://www.unemi.edu.ec/index.php/carreras-presencial/licenciatura-en-fisioterapia/",
+    "modalidad": "Presencial"
+  },
+  {
+    "nombre": "Medicina",
+    "enlace": "https://www.unemi.edu.ec/index.php/carreras-presencial/medicina/",
+    "modalidad": "Presencial"
+  },
+  {
+    "nombre": "Pedagogía de la Actividad Física y Deporte",
+    "enlace": "https://www.unemi.edu.ec/index.php/carreras-presencial/pedagogia-de-la-actividad-fisica-y-deporte/",
+    "modalidad": "Presencial"
+  },
+  {
+    "nombre": "Educación",
+    "enlace": "https://www.unemi.edu.ec/index.php/carreras-presencial/licenciatura-en-educacion/",
+    "modalidad": "Presencial"
+  },
+  {
+    "nombre": "Pedagogía de los Idiomas Nacionales y Extranjeros",
+    "enlace": "https://www.unemi.edu.ec/index.php/carreras-presencial/pedagogia-de-los-idiomas-nacionales-y-extranjeros/",
+    "modalidad": "Presencial"
+  },
+  {
+    "nombre": "Educación Especial",
+    "enlace": "https://www.unemi.edu.ec/index.php/carreras-presencial/educacion-especial/",
+    "modalidad": "Presencial"
+  },
+  {
+    "nombre": "Pedagogía de la Lengua y Literatura",
+    "enlace": "https://www.unemi.edu.ec/index.php/carreras-presencial/pedagogia-de-la-lengua-y-literatura/",
+    "modalidad": "Presencial"
+  }
+]

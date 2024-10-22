@@ -1,0 +1,17 @@
+[
+  {
+    "nombre": "Trabajo Social",
+    "enlace": "https://www.unemi.edu.ec/index.php/carreras-semipresencial/trabajo-social/",
+    "modalidad": "Semipresencial"
+  },
+  {
+    "nombre": "Educación inicial",
+    "enlace": "https://www.unemi.edu.ec/index.php/carreras-semipresencial/educacion-inicial/",
+    "modalidad": "Semipresencial"
+  },
+  {
+    "nombre": "Pedagogía de las Ciencias Experimentales",
+    "enlace": "https://www.unemi.edu.ec/index.php/carreras-semipresencial/pedagogia-de-las-ciencias-experimentales/",
+    "modalidad": "Semipresencial"
+  }
+]

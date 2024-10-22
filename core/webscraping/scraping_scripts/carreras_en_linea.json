@@ -1,0 +1,57 @@
+[
+  {
+    "nombre": "Tecnologías de la Información",
+    "enlace": "https://www.unemi.edu.ec/index.php/carreras-en-linea/tecnologias-de-la-informacion-modalidad-virtual/",
+    "modalidad": "En Línea"
+  },
+  {
+    "nombre": "Turismo",
+    "enlace": "https://www.unemi.edu.ec/index.php/carreras-en-linea/turismo-modalidad-virtual/",
+    "modalidad": "En Línea"
+  },
+  {
+    "nombre": "Comunicación",
+    "enlace": "https://www.unemi.edu.ec/index.php/carreras-en-linea/comunicacion-modalidad-virtual/",
+    "modalidad": "En Línea"
+  },
+  {
+    "nombre": "Derecho",
+    "enlace": "https://www.unemi.edu.ec/index.php/carreras-en-linea/derecho-modalidad-virtual/",
+    "modalidad": "En Línea"
+  },
+  {
+    "nombre": "Psicología",
+    "enlace": "https://www.unemi.edu.ec/index.php/carreras-en-linea/psicologia-modalidad-virtual/",
+    "modalidad": "En Línea"
+  },
+  {
+    "nombre": "Economía",
+    "enlace": "https://www.unemi.edu.ec/index.php/carreras-en-linea/economia-modalidad-virtual/",
+    "modalidad": "En Línea"
+  },
+  {
+    "nombre": "Trabajo Social",
+    "enlace": "https://www.unemi.edu.ec/index.php/carreras-presencial/trabajo-social-modalidad-virtual/",
+    "modalidad": "En Línea"
+  },
+  {
+    "nombre": "Administración de Empresas",
+    "enlace": "https://www.unemi.edu.ec/index.php/carreras-en-linea/administracion-de-empresas-modalidad-virtual/",
+    "modalidad": "En Línea"
+  },
+  {
+    "nombre": "Educación básica",
+    "enlace": "https://www.unemi.edu.ec/index.php/carreras-en-linea/educacion-modalidad-virtual/",
+    "modalidad": "En Línea"
+  },
+  {
+    "nombre": "Educación inicial",
+    "enlace": "https://www.unemi.edu.ec/index.php/carreras-en-linea/educacion-inicial-modalidad-virtual/",
+    "modalidad": "En Línea"
+  },
+  {
+    "nombre": "Pedagogía de los idiomas nacionales y extranjeros",
+    "enlace": "https://www.unemi.edu.ec/index.php/carreras-en-linea/pedagogia-de-los-idiomas-nacionales-y-extranjeros-modalidad-virtual/",
+    "modalidad": "En Línea"
+  }
+]

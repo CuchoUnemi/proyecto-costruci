@@ -3,14 +3,20 @@
 
 {% block content %}
 <title>{% block title %} {{ title1 }} {% endblock title %}</title>
-<!-- Include Google Fonts -->
+<style>
+    footer {
+        display: none;
+    }
+</style>
+
+<!-- Include Google Fonts  hola -->
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet">
 <div class="bg-gray-100 flex h-screen flex-row-reverse">
     <!-- Right: Image -->
     <div class="w-7/10 h-screen hidden lg:block">
         <img src="{% static 'img/hero32.jpeg' %}" alt="Signin" class="object-cover w-full h-full">
     </div>
-
+    <!-- Left: Registration Form revisa bien cucho --> 
     <div class="w-full lg:w-3/10 flex items-center justify-center lg:p-36 md:p-24 p-8 bg-white dark:bg-principal">
         <div class="w-full max-w-4xl bg-white dark:bg-black p-8 rounded-lg shadow-lg">
             <h1 class="text-3xl font-semibold mb-6 text-orange-500 dark:text-orange-300">{{ title2 }}</h1>
