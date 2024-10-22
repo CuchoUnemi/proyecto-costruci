@@ -32,7 +32,7 @@
                                     <path d="M11 11a4 4 0 1 1 4 0"/>
                                 </svg>
                                 <span class="grow">
-                                    <span class="block text-lg font-semibold tab-title-text text-orange-500 dark:text-orange-300">Actualiza tu informacion</span>
+                                    <span class="block text-lg font-semibold tab-title-text text-orange-500 dark:text-orange-300">Actualiza tu información</span>
                                     <span class="block mt-1 text-gray-600 dark:text-neutral-400">Visualiza y actualiza solo con un click.</span>
                                 </span>
                             </span>
@@ -40,7 +40,7 @@
                     </nav>
 
                     <!-- Buttons to update chart and chatbot -->
-                    <div class="flex justify-center gap-4 mt-10"> <!-- Increased margin-top here -->
+                    <div class="flex justify-center gap-4 mt-10">
                         <!-- Button to update chart -->
                         <button id="updateChart" class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 flex items-center">
                             <i class="fas fa-chart-bar mr-2"></i> Actualizar Gráfico
@@ -58,12 +58,9 @@
                     <div class="tab-content">
                         <!-- Panel 1 -->
                         <div id="tabs-with-card-1" role="tabpanel" aria-labelledby="tabs-with-card-item-1">
-                            <!-- Title for the chart -->
                             <h3 class="text-xl font-semibold mb-4 text-center text-gray-800 dark:text-gray-200">Preguntas más frecuentes</h3>
-
-                            <!-- Chart Placeholder -->
-                            <div class="h-[500px] md:h-[600px]"> <!-- Increased height of container here -->
-                                <canvas id="myChart" class="rounded-xl h-full"></canvas> <!-- Set canvas height to full -->
+                            <div class="h-[500px] md:h-[600px]">
+                                <canvas id="myChart" class="rounded-xl h-full"></canvas>
                             </div>
                         </div>
                     </div>
@@ -76,7 +73,7 @@
 </div>
 
 <!-- Modal -->
-<div id="loadingModal" class="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center hidden">
+<div id="loadingModal" class="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center hidden z-50">
     <div class="bg-white dark:bg-gray-800 rounded-3xl p-6 shadow-lg w-full max-w-lg relative">
         <div class="loader border-t-4 border-blue-500 border-solid rounded-full w-12 h-12 mb-4 animate-spin"></div>
         <p class="dark:text-gray-400 text-lg mb-6">Actualizando chatbot, por favor espera...</p>
@@ -84,7 +81,7 @@
 </div>
 
 <!-- Modal de mensaje -->
-<div id="messageModal" class="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center hidden">
+<div id="messageModal" class="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center hidden z-50">
     <div class="bg-white dark:bg-gray-800 rounded-3xl p-6 shadow-lg w-full max-w-lg relative">
         <span id="messageText" class="dark:text-gray-400 text-lg mb-6"></span>
         <div class="mt-4 text-center">
@@ -92,8 +89,9 @@
         </div>
     </div>
 </div>
+
 <!-- Modal de confirmación -->
-<div id="confirmModal" class="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center hidden">
+<div id="confirmModal" class="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center hidden z-50">
     <div class="bg-white dark:bg-gray-800 rounded-3xl p-6 shadow-lg w-full max-w-lg relative">
         <h2 class="dark:text-blue-300 text-2xl text-center mb-4 font-bold">Confirmar Actualización</h2>
         <p class="dark:text-gray-400 text-lg mb-6">¿Está seguro de que desea actualizar la información del chatbot? Esta acción no se puede deshacer.</p>
@@ -142,17 +140,15 @@
 <!-- Include Chart.js -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-    let myChart; // Declare the chart variable globally
+    let myChart;
 
     function renderChart() {
         const ctx = document.getElementById('myChart').getContext('2d');
 
         if (myChart) {
-            // Destroy the previous chart instance if it exists
             myChart.destroy();
         }
 
-        // Create a new chart instance
         myChart = new Chart(ctx, {
             type: 'bar',
             data: {
@@ -175,66 +171,50 @@
             }
         });
     }
-    
-    
-document.addEventListener('DOMContentLoaded', function() {
-    const loadingModal = document.getElementById('loadingModal');
-    const messageModal = document.getElementById('messageModal');
-    const messageText = document.getElementById('messageText');
-    const confirmModal = document.getElementById('confirmModal');
-    const confirmUpdateButton = document.getElementById('confirmUpdate');
-    const cancelUpdateButton = document.getElementById('cancelUpdate');
-    const closeConfirmModalIcon = document.getElementById('closeConfirmModalIcon');
-    const closeMessageModal = document.getElementById('closeMessageModal');
-    
-    // Mostrar modal de confirmación al hacer clic en el botón actualizar
-    document.getElementById('updateChatbot').addEventListener('click', function() {
-        confirmModal.classList.remove('hidden');
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const loadingModal = document.getElementById('loadingModal');
+        const messageModal = document.getElementById('messageModal');
+        const messageText = document.getElementById('messageText');
+        const confirmModal = document.getElementById('confirmModal');
+        const confirmUpdateButton = document.getElementById('confirmUpdate');
+        const cancelUpdateButton = document.getElementById('cancelUpdate');
+        const closeConfirmModalIcon = document.getElementById('closeConfirmModalIcon');
+        const closeMessageModal = document.getElementById('closeMessageModal');
+
+        document.getElementById('updateChatbot').addEventListener('click', function() {
+            confirmModal.classList.remove('hidden');
+        });
+
+        function closeConfirmModal() {
+            confirmModal.classList.add('hidden');
+        }
+
+        cancelUpdateButton.addEventListener('click', closeConfirmModal);
+        closeConfirmModalIcon.addEventListener('click', closeConfirmModal);
+
+        confirmUpdateButton.addEventListener('click', function() {
+            closeConfirmModal();
+            loadingModal.classList.remove('hidden');
+
+            fetch('/webscraping/actualizar_chatbot/')
+                .then(response => response.json())
+                .then(data => {
+                    messageText.innerText = "El chatbot se ha actualizado exitosamente.";
+                })
+                .catch(error => {
+                    messageText.innerText = "Hubo un error al actualizar el chatbot. Por favor, inténtalo de nuevo.";
+                })
+                .finally(() => {
+                    loadingModal.classList.add('hidden');
+                    messageModal.classList.remove('hidden');
+                });
+        });
+
+        closeMessageModal.addEventListener('click', function() {
+            messageModal.classList.add('hidden');
+        });
     });
-
-    // Función para cerrar el modal de confirmación
-    function closeConfirmModal() {
-        confirmModal.classList.add('hidden');
-    }
-
-    // Cerrar el modal de confirmación al hacer clic en cancelar o en la "X"
-    cancelUpdateButton.addEventListener('click', closeConfirmModal);
-    closeConfirmModalIcon.addEventListener('click', closeConfirmModal);
-
-    // Confirmar la actualización y proceder con el fetch
-    confirmUpdateButton.addEventListener('click', function() {
-        // Cerrar el modal de confirmación
-        closeConfirmModal();
-
-        // Mostrar el modal de carga
-        loadingModal.classList.remove('hidden');
-
-        // Realizar la petición al servidor
-        fetch('/webscraping/actualizar_chatbot/')
-            .then(response => response.json())
-            .then(data => {
-                // Configurar el mensaje de éxito
-                messageText.innerText = "El chatbot se ha actualizado exitosamente.";
-            })
-            .catch(error => {
-                // Configurar el mensaje de error
-                messageText.innerText = "Hubo un error al actualizar el chatbot. Por favor, inténtalo de nuevo.";
-            })
-            .finally(() => {
-                // Ocultar el modal de carga
-                loadingModal.classList.add('hidden');
-                // Mostrar el modal de mensaje
-                messageModal.classList.remove('hidden');
-            });
-    });
-
-    // Cerrar el modal de mensaje cuando se haga clic en "Cerrar"
-    closeMessageModal.addEventListener('click', function() {
-        messageModal.classList.add('hidden');
-    });
-});
-
-    
-
 </script>
 {% endblock %}
+C
