@@ -28,5 +28,6 @@ urlpatterns = [
     path('chatbot/', include('core.chatbot.urls')),
     path('auth/', include('core.login_register.urls')),
     path('authRercPassw/', include('core.recover_password.urls')),
-
+    path('webscraping/', include('core.webscraping.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
