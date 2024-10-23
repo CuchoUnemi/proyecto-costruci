@@ -193,34 +193,34 @@ LOGIN_URL = '/auth/login/'
 #             'handlers': ['console'],
 #         },
 #     },
+# # }
+# import logging
+
+# class CustomFormatter(logging.Formatter):
+#     def format(self, record):
+#         original_msg = super().format(record)
+#         return f"\n{'#' * 10} INICIA LOGS {'#' * 10}\n{original_msg}\n{'#' * 10} FINALIZA LOGS {'#' * 10}"
+
+# LOGGING = {
+#     'version': 1,
+#     'disable_existing_loggers': False,
+#     'handlers': {
+#         'console': {
+#             'level': 'DEBUG',
+#             'class': 'logging.StreamHandler',
+#             'formatter': 'custom',
+#         },
+#     },
+#     'formatters': {
+#         'custom': {
+#             '()': CustomFormatter,
+#             'format': '%(message)s',
+#         },
+#     },
+#     'loggers': {
+#         'django.db.backends': {
+#             'level': 'DEBUG',
+#             'handlers': ['console'],
+#         },
+#     },
 # }
-import logging
-
-class CustomFormatter(logging.Formatter):
-    def format(self, record):
-        original_msg = super().format(record)
-        return f"\n{'#' * 10} INICIA LOGS {'#' * 10}\n{original_msg}\n{'#' * 10} FINALIZA LOGS {'#' * 10}"
-
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'handlers': {
-        'console': {
-            'level': 'DEBUG',
-            'class': 'logging.StreamHandler',
-            'formatter': 'custom',
-        },
-    },
-    'formatters': {
-        'custom': {
-            '()': CustomFormatter,
-            'format': '%(message)s',
-        },
-    },
-    'loggers': {
-        'django.db.backends': {
-            'level': 'DEBUG',
-            'handlers': ['console'],
-        },
-    },
-}
