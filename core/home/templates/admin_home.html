@@ -215,6 +215,49 @@
             messageModal.classList.add('hidden');
         });
     });
+
+    // Función para cerrar el modal de confirmación
+    function closeConfirmModal() {
+        confirmModal.classList.add('hidden');
+    }
+
+    // Cerrar el modal de confirmación al hacer clic en cancelar o en la "X"
+    cancelUpdateButton.addEventListener('click', closeConfirmModal);
+    closeConfirmModalIcon.addEventListener('click', closeConfirmModal);
+
+    // Confirmar la actualización y proceder con el fetch
+    confirmUpdateButton.addEventListener('click', function() {
+        // Cerrar el modal de confirmación
+        closeConfirmModal();
+
+        // Mostrar el modal de carga
+        loadingModal.classList.remove('hidden');
+
+        // Realizar la petición al servidor
+        fetch('/webscraping/actualizar_chatbot/')
+            .then(response => response.json())
+            .then(data => {
+                // Configurar el mensaje de éxito
+                messageText.innerText = "El chatbot se ha actualizado exitosamente.";
+            })
+            .catch(error => {
+                // Configurar el mensaje de error
+                messageText.innerText = "Hubo un error al actualizar el chatbot. Por favor, inténtalo de nuevo.";
+            })
+            .finally(() => {
+                // Ocultar el modal de carga
+                loadingModal.classList.add('hidden');
+                // Mostrar el modal de mensaje
+                messageModal.classList.remove('hidden');
+            });
+    });
+
+    // Cerrar el modal de mensaje cuando se haga clic en "Cerrar"
+    closeMessageModal.addEventListener('click', function() {
+        messageModal.classList.add('hidden');
+    });
+});
+
 </script>
 {% endblock %}
 C

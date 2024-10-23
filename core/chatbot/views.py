@@ -5,7 +5,7 @@ from django.views import View
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 from django.views.generic import TemplateView
-from .chatbot import chatbot_response  # Importar la función de chatbot
+from .chatbot import interactuar_con_usuario  # Importar la función de chatbot
 from .models import ChatSession, Message
 
 
@@ -18,7 +18,7 @@ class ChatBotView(View):
         new_session = data.get('new_session', False)  # Si se debe iniciar una nueva sesión
         session_id = data.get('session_id', None)  # Intentar obtener el session_id del cliente
 
-        chatbot_reply = chatbot_response(message_text)
+        chatbot_reply = interactuar_con_usuario(message_text)
         print(f'{data}')
         print("---------")
         print(f'{new_session}===new_session')

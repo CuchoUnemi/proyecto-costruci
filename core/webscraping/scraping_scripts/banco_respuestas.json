@@ -1,0 +1,165 @@
+{
+    "duracion": [
+        "La duración de la carrera de {nombre} es de {duracion}.",
+        "Normalmente, la carrera de {nombre} dura aproximadamente {duracion}.",
+        "Si hablamos de {nombre}, tiene una duración de {duracion}.",
+        "La carrera de {nombre} se completa en un tiempo estimado de {duracion}.",
+        "Para finalizar la carrera de {nombre}, se requiere un periodo de {duracion}.",
+        "En general, la duración de la carrera de {nombre} es de {duracion}.",
+        "Los estudiantes suelen tardar alrededor de {duracion} para completar la carrera de {nombre}.",
+        "El tiempo promedio para completar la carrera de {nombre} es de {duracion}.",
+        "El ciclo académico para la carrera de {nombre} se extiende por {duracion}.",
+        "Al finalizar, el alumno habrá dedicado {duracion} a la carrera de {nombre}."
+    ],
+    "titulo": [
+        "Al finalizar la carrera de {nombre}, se otorga el título de {titulo}.",
+        "El título otorgado al completar la carrera de {nombre} es {titulo}.",
+        "Cuando terminas la carrera de {nombre}, recibes el título de {titulo}.",
+        "El graduado de la carrera de {nombre} obtiene el título de {titulo}.",
+        "Al concluir la carrera de {nombre}, se reconoce con el título de {titulo}.",
+        "Al finalizar tus estudios en {nombre}, se te entrega el título de {titulo}.",
+        "El reconocimiento al concluir la carrera de {nombre} es el título de {titulo}.",
+        "Al culminar la carrera de {nombre}, los estudiantes obtienen el título de {titulo}.",
+        "El diploma que recibirás al finalizar la carrera de {nombre} es {titulo}.",
+        "El certificado de finalización de la carrera de {nombre} es el título de {titulo}."
+    ],
+    "modalidad": [
+        "La modalidad de la carrera de {nombre} es {modalidad}.",
+        "Puedes estudiar la carrera de {nombre} en modalidad {modalidad}.",
+        "La carrera de {nombre} se ofrece en modalidad {modalidad}.",
+        "El programa de {nombre} está disponible en modalidad {modalidad}.",
+        "Existen opciones de estudio para la carrera de {nombre} en modalidad {modalidad}.",
+        "Los estudiantes pueden elegir la modalidad {modalidad} para la carrera de {nombre}.",
+        "La carrera de {nombre} se imparte en modalidad {modalidad} para mayor flexibilidad.",
+        "Los cursos de la carrera de {nombre} están organizados en modalidad {modalidad}.",
+        "Es posible acceder a la carrera de {nombre} en modalidad {modalidad}.",
+        "La oferta académica de {nombre} incluye la modalidad {modalidad}."
+    ],
+    "descripcion": [
+        "La carrera de {nombre} se describe como: {descripcion}.",
+        "En resumen, la carrera de {nombre} tiene las siguientes características: {descripcion}.",
+        "La descripción de la carrera de {nombre} es la siguiente: {descripcion}.",
+        "El enfoque de la carrera de {nombre} se centra en: {descripcion}.",
+        "La carrera de {nombre} se caracteriza por: {descripcion}.",
+        "Si te interesa {nombre}, aquí está la descripción: {descripcion}.",
+        "En cuanto a la carrera de {nombre}, se puede resumir así: {descripcion}.",
+        "La carrera de {nombre} destaca por: {descripcion}.",
+        "Los aspectos más relevantes de la carrera de {nombre} son: {descripcion}.",
+        "La carrera de {nombre} ofrece una amplia variedad de: {descripcion}."
+    ],
+    "objetivos": [
+        "Los objetivos de la carrera de {nombre} son: {objetivos}.",
+        "Al estudiar {nombre}, se busca alcanzar los siguientes objetivos: {objetivos}.",
+        "Los principales objetivos de la carrera de {nombre} incluyen: {objetivos}.",
+        "La carrera de {nombre} tiene como metas: {objetivos}.",
+        "El enfoque educativo de {nombre} se dirige a lograr: {objetivos}.",
+        "Entre los objetivos de la carrera de {nombre} destacan: {objetivos}.",
+        "Los fines de la carrera de {nombre} se centran en: {objetivos}.",
+        "El propósito de estudiar {nombre} es: {objetivos}.",
+        "Al finalizar la carrera de {nombre}, los alumnos habrán alcanzado: {objetivos}.",
+        "La carrera de {nombre} tiene como finalidad: {objetivos}."
+    ],
+    "porque_estudiar": [
+        "Hay varias razones para estudiar la carrera de {nombre}: {porque_estudiar}.",
+        "Algunas razones para considerar la carrera de {nombre} son: {porque_estudiar}.",
+        "Estudiar {nombre} puede ser beneficioso porque: {porque_estudiar}.",
+        "Existen múltiples motivaciones para elegir la carrera de {nombre}: {porque_estudiar}.",
+        "El interés por la carrera de {nombre} se justifica en: {porque_estudiar}.",
+        "Las ventajas de estudiar {nombre} incluyen: {porque_estudiar}.",
+        "Una buena razón para estudiar {nombre} es: {porque_estudiar}.",
+        "El atractivo de la carrera de {nombre} radica en: {porque_estudiar}.",
+        "Las oportunidades que ofrece la carrera de {nombre} son: {porque_estudiar}.",
+        "La carrera de {nombre} es recomendada porque: {porque_estudiar}."
+    ],
+    "autoridades": [
+        "Las autoridades responsables de la carrera de {nombre} son: {autoridades}.",
+        "El equipo de autoridades que gestiona la carrera de {nombre} incluye: {autoridades}.",
+        "Las autoridades a cargo de la carrera de {nombre} son: {autoridades}.",
+        "Los encargados de supervisar la carrera de {nombre} son: {autoridades}.",
+        "La dirección de la carrera de {nombre} está a cargo de: {autoridades}.",
+        "El grupo de autoridades que lidera la carrera de {nombre} comprende: {autoridades}.",
+        "Las figuras clave en la gestión de la carrera de {nombre} son: {autoridades}.",
+        "El comité responsable de la carrera de {nombre} está formado por: {autoridades}.",
+        "Los líderes de la carrera de {nombre} incluyen a: {autoridades}.",
+        "Las personalidades que regulan la carrera de {nombre} son: {autoridades}."
+    ],
+    "perfilIngreso": [
+        "El perfil de ingreso para la carrera de {nombre} incluye: {perfilIngreso}.",
+        "Para ingresar a la carrera de {nombre}, se requiere un perfil de ingreso que abarca: {perfilIngreso}.",
+        "Los requisitos de ingreso para la carrera de {nombre} son: {perfilIngreso}.",
+        "El perfil de ingreso a la carrera de {nombre} se define por: {perfilIngreso}.",
+        "Los criterios para ser admitido en {nombre} son: {perfilIngreso}.",
+        "Se espera que los aspirantes a la carrera de {nombre} tengan: {perfilIngreso}.",
+        "Para acceder a la carrera de {nombre}, el perfil de ingreso incluye: {perfilIngreso}.",
+        "El perfil recomendado para ingresar a {nombre} es: {perfilIngreso}.",
+        "Los aspirantes a la carrera de {nombre} deben cumplir con: {perfilIngreso}.",
+        "Los estándares de ingreso para la carrera de {nombre} son: {perfilIngreso}."
+    ],
+    "perfilEgreso": [
+        "Al finalizar la carrera de {nombre}, el perfil de egreso esperado es: {perfilEgreso}.",
+        "El perfil de egreso de la carrera de {nombre} incluye las siguientes competencias: {perfilEgreso}.",
+        "Una vez que egresas de {nombre}, se espera que poseas el siguiente perfil: {perfilEgreso}.",
+        "Los egresados de la carrera de {nombre} tendrán las siguientes habilidades: {perfilEgreso}.",
+        "Al concluir tus estudios en {nombre}, tu perfil de egreso será: {perfilEgreso}.",
+        "El perfil profesional de los egresados de {nombre} se caracteriza por: {perfilEgreso}.",
+        "Los graduados de {nombre} están capacitados en: {perfilEgreso}.",
+        "Las competencias adquiridas al finalizar la carrera de {nombre} son: {perfilEgreso}.",
+        "Los estudiantes que egresan de {nombre} poseen un perfil que incluye: {perfilEgreso}.",
+        "La formación de la carrera de {nombre} asegura que los egresados tengan: {perfilEgreso}."
+    ],
+    "informacionAdicional": [
+        "Además, aquí tienes más información sobre la carrera de {nombre}: {informacionAdicional}.",
+        "Si deseas más detalles sobre la carrera de {nombre}, puedes consultar: {informacionAdicional}.",
+        "Para información adicional sobre la carrera de {nombre}, considera: {informacionAdicional}.",
+        "También puedes encontrar más datos sobre la carrera de {nombre} en: {informacionAdicional}.",
+        "No dudes en revisar la información complementaria sobre {nombre}: {informacionAdicional}.",
+        "Para conocer más sobre la carrera de {nombre}, revisa: {informacionAdicional}.",
+        "Aquí tienes información extra sobre la carrera de {nombre}: {informacionAdicional}.",
+        "Si buscas detalles adicionales sobre la carrera de {nombre}, consulta: {informacionAdicional}.",
+        "Para obtener más información sobre la carrera de {nombre}, considera: {informacionAdicional}.",
+        "Aquí te proporcionamos más información relevante sobre {nombre}: {informacionAdicional}."
+    ],
+    "numeroEstudiantes": [
+        "La universidad cuenta con un total de {numeroEstudiantes} estudiantes.",
+        "Actualmente, hay {numeroEstudiantes} estudiantes matriculados en la universidad.",
+        "La población estudiantil de la universidad es de {numeroEstudiantes} estudiantes.",
+        "UNEMI tiene una comunidad estudiantil de aproximadamente {numeroEstudiantes} estudiantes.",
+        "El número total de estudiantes en la universidad es de {numeroEstudiantes}."
+      ],
+      "numeroCarreras": [
+        "La universidad ofrece {numeroCarreras} carreras.",
+        "En total, hay {numeroCarreras} programas de estudio disponibles en la universidad.",
+        "UNEMI cuenta con una oferta académica de {numeroCarreras} carreras.",
+        "Actualmente, la universidad dispone de {numeroCarreras} carreras.",
+        "El catálogo de programas de UNEMI incluye {numeroCarreras} carreras."
+      ],
+      "direccion": [
+        "La universidad está ubicada en: {direccion}.",
+        "Puedes encontrar la universidad en: {direccion}.",
+        "La dirección de UNEMI es: {direccion}.",
+        "UNEMI se localiza en: {direccion}.",
+        "La sede de la universidad está en: {direccion}."
+      ],
+      "codigoPostal": [
+        "El código postal de la universidad es {codigoPostal}.",
+        "La universidad está en la zona con código postal {codigoPostal}.",
+        "UNEMI está localizada en la región con código postal {codigoPostal}.",
+        "El código postal asociado a la dirección de la universidad es {codigoPostal}.",
+        "La ubicación de UNEMI tiene el código postal {codigoPostal}."
+      ],
+      "autoridadesPrincipales": [
+        "El rector de la universidad es {autoridadesPrincipales[0][nombre]}. Los vicerrectores son {autoridadesPrincipales[1][nombre]} (Vicerrectora Académica), {autoridadesPrincipales[2][nombre]} (Vicerrector de Investigación y Posgrado), y {autoridadesPrincipales[3][nombre]} (Vicerrectora de Vinculación).",
+        "El rector de UNEMI es {autoridadesPrincipales[0][nombre]}, y los vicerrectores incluyen a {autoridadesPrincipales[1][nombre]}, {autoridadesPrincipales[2][nombre]}, y {autoridadesPrincipales[3][nombre]}.",
+        "UNEMI está bajo la dirección del rector {autoridadesPrincipales[0][nombre]}. Los vicerrectores que lo acompañan son {autoridadesPrincipales[1][nombre]}, {autoridadesPrincipales[2][nombre]}, y {autoridadesPrincipales[3][nombre]}.",
+        "El rector de UNEMI es {autoridadesPrincipales[0][nombre]}, apoyado por los vicerrectores {autoridadesPrincipales[1][nombre]}, {autoridadesPrincipales[2][nombre]}, y {autoridadesPrincipales[3][nombre]}.",
+        "El equipo directivo de UNEMI está encabezado por {autoridadesPrincipales[0][nombre]} como rector, con el apoyo de {autoridadesPrincipales[1][nombre]}, {autoridadesPrincipales[2][nombre]}, y {autoridadesPrincipales[3][nombre]} como vicerrectores."
+      ],
+      "historia": [
+        "La universidad tiene una historia de {historia}.",
+        "La trayectoria de UNEMI incluye {historia}.",
+        "Con más de 21 años de historia, UNEMI ha logrado {historia}.",
+        "Desde su fundación, la universidad ha experimentado {historia}.",
+        "La Universidad Estatal de Milagro tiene un legado de {historia}."
+      ]
+    
+}
