@@ -18,27 +18,6 @@
                         <span class="text-secondary text-orange-500 dark:text-orange-300 text-3xl font-black my-2 block">Bienvenido, usuario anónimo.</span>
                     {% endif %}
                     <h2 class="text-2xl text-blue-500 font-bold sm:text-3xl dark:text-blue-300">¿Qué puedes hacer?</h2>
-
-                    <!-- Tab Navs -->
-                    <nav class="grid gap-4 mt-5 md:mt-10" aria-label="Tabs" role="tablist" aria-orientation="vertical">
-                        <button type="button" class="tab-button text-start hover:bg-gray-200 focus:outline-none focus:bg-gray-200 p-4 md:p-5 rounded-xl bg-gray-100 dark:bg-gray-800 dark:text-gray-200 active" id="tabs-with-card-item-1" aria-selected="true" data-hs-tab="#tabs-with-card-1" aria-controls="tabs-with-card-1" role="tab">
-                            <span class="flex gap-x-6">
-                                <svg class="shrink-0 mt-2 size-6 md:size-7 tab-button-icon text-gray-800 dark:text-neutral-200" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <circle cx="12" cy="12" r="10"/>
-                                    <path d="M9 9h.01"/>
-                                    <path d="M15 15h.01"/>
-                                    <path d="M11 11h.01"/>
-                                    <path d="M12 17h0"/>
-                                    <path d="M11 11a4 4 0 1 1 4 0"/>
-                                </svg>
-                                <span class="grow">
-                                    <span class="block text-lg font-semibold tab-title-text text-orange-500 dark:text-orange-300">Actualiza tu información</span>
-                                    <span class="block mt-1 text-gray-600 dark:text-neutral-400">Visualiza y actualiza solo con un click.</span>
-                                </span>
-                            </span>
-                        </button>
-                    </nav>
-
                     <!-- Buttons to update chart and chatbot -->
                     <div class="flex justify-center gap-4 mt-10">
                         <!-- Button to update chart -->
@@ -59,9 +38,9 @@
                         <!-- Panel 1 -->
                         <div id="tabs-with-card-1" role="tabpanel" aria-labelledby="tabs-with-card-item-1">
                             <h3 class="text-xl font-semibold mb-4 text-center text-gray-800 dark:text-gray-200">Preguntas más frecuentes</h3>
-                            <div class="h-[500px] md:h-[600px]">
-                                <canvas id="myChart" class="rounded-xl h-full"></canvas>
-                            </div>
+                            <!-- Reemplazo del gráfico con ApexCharts -->
+                            <!-- Ajustamos el tamaño del contenedor del gráfico para evitar solapamiento -->
+                            <div id="chart" class="h-[500px] max-h-[600px] w-full lg:w-[85%] mx-auto rounded-xl"></div>
                         </div>
                     </div>
                     <!-- End Tab Content -->
@@ -137,42 +116,59 @@
 
 <!-- Include Font Awesome -->
 <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-<!-- Include Chart.js -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<!-- Include ApexCharts -->
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 <script>
-    let myChart;
+    let chart; // Declaración global del gráfico
 
-    function renderChart() {
-        const ctx = document.getElementById('myChart').getContext('2d');
-
-        if (myChart) {
-            myChart.destroy();
+    function renderApexChart() {
+        // Destruir instancia previa del gráfico si existe
+        if (chart) {
+            chart.destroy();
         }
 
-        myChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-                datasets: [{
-                    label: 'My First Dataset',
-                    data: [Math.random() * 100, Math.random() * 100, Math.random() * 100, Math.random() * 100, Math.random() * 100, Math.random() * 100, Math.random() * 100],
-                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                    borderColor: 'rgba(255, 99, 132, 1)',
-                    borderWidth: 1
-                }]
+        // Crear un nuevo gráfico usando ApexCharts con mayor altura y ancho
+        chart = new ApexCharts(document.querySelector("#chart"), {
+            chart: {
+                type: 'area',
+                height: '500px',  // Ajuste de altura para que no sea demasiado alto
+                width: '100%', // Aumentar el ancho del gráfico
             },
-            options: {
-                responsive: true,
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
+            series: [{
+                name: 'series1',
+                data: [31, 40, 28, 51, 42, 109, 100]
+            }, {
+                name: 'series2',
+                data: [11, 32, 45, 32, 34, 52, 41]
+            }],
+            xaxis: {
+                categories: ['22:00', '23:00', '00:00', '01:00', '02:00', '03:00', '04:00']
+            },
+            colors: ['#008FFB', '#00E396'],
+            stroke: {
+                curve: 'smooth'
+            },
+            fill: {
+                opacity: 0.3
+            },
+            title: {
+                text: 'Area Chart',
+                align: 'left'
             }
         });
+
+        // Renderizar el gráfico
+        chart.render();
     }
 
     document.addEventListener('DOMContentLoaded', function() {
+        renderApexChart();
+
+        // Escuchar clic en el botón para actualizar el gráfico
+        document.getElementById('updateChart').addEventListener('click', function() {
+            renderApexChart(); // Volver a renderizar el gráfico al hacer clic en el botón
+        });
+
         const loadingModal = document.getElementById('loadingModal');
         const messageModal = document.getElementById('messageModal');
         const messageText = document.getElementById('messageText');
@@ -217,4 +213,3 @@
     });
 </script>
 {% endblock %}
-C
