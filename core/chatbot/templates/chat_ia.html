@@ -20,8 +20,7 @@
                 <div class="flex items-center space-x-2">
                     <h2 class="text-lg font-semibold">Historial de sesiones</h2>
                     <!-- Botón de nuevo chat con tooltip -->
-                    <button class="relative group bg-white border border-gray-300 rounded-md p-2 hover:bg-gray-100 focus:ring focus:ring-gray-200"
-                            onclick="clearLocalStorage()">
+                    <button onclick="clearlocol()">
                         <!-- Ícono de chat -->
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-800 cursor-pointer" fill="none"
                              viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -118,7 +117,7 @@
                 <div id="error-message" class="mt-4 hidden">
                     <p class="text-red-500">La sesión ha expirado o está inactiva. Por favor, inicia un nuevo chat.</p>
                     <button class="py-3 px-4 bg-blue-500 text-white rounded-lg hover:bg-blue-600 "
-                            onclick="clearLocalStorage()">
+                            onclick="clearlocol()">
                         Iniciar nuevo chat
                     </button>
                 </div>
@@ -451,7 +450,7 @@
         }
     }
 
-    function clearLocalStorage() { // para eliminar el historial del localstore y cree nuevos chats
+    function clearlocol() { // para eliminar el historial del localstore y cree nuevos chats
         console.log("Botón de nuevo chat clicado.");
         const mensajeDiv = document.getElementById('id_mensaje');
         const newChatButton = document.getElementById('error-message');
@@ -471,5 +470,27 @@
         `;
         }
     }
+</script>
+<script>
+    document.querySelector(".new-chat-btn").addEventListener("click", function() {
+        console.log("Botón de nuevo chat clicado.");
+        const mensajeDiv = document.getElementById('id_mensaje');
+        const newChatButton = document.getElementById('error-message');
+        // Ocultar el mensaje de error y mostrar el mensaje normal
+        newChatButton.classList.add('hidden');  // Ocultar el botón de error.
+        mensajeDiv.classList.remove('hidden');  // Mostrar el div de mensajes.
+
+        // Función para limpiar el localStorage
+        localStorage.clear();  // Limpia todo el localStorage
+        const chatbox = document.getElementById('chatbox');  // Asegúrate de tener la referencia correcta
+        if (chatbox) {
+            chatbox.innerHTML = `
+            <div class="flex items-start mb-4">
+                <img src="{% static 'img/mmmmmmmmmmmmmmm.jpg' %}" alt="Avatar de UnemIA" class="w-6 h-6 rounded-full mr-2">
+                <div class="text-sm text-gray-500 dark:text-gray-400">¡Hola! ¿Cómo puedo ayudarte hoy?</div>
+            </div>
+        `;
+        }
+    });
 </script>
 {% endblock content %}

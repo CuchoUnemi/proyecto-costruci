@@ -57,7 +57,7 @@
         .tab-button:not([aria-selected="true"]) .tab-title-text {
             color: #4b5563; /* Color gris oscuro, puedes cambiarlo según el diseño */
         }
-        
+
         /* ANIMACIÓN DE CARGA */
         .overlay {
             position: fixed;
@@ -472,14 +472,14 @@
 
 	{% if request.user.is_authenticated %}
     <!-- Verificar si no estamos en la vista de soporte -->
-    {% if request.resolver_match.view_name != 'ChatBot:chat_ia' %}
-        <!-- Botón de soporte de WhatsApp -->
-        <a href="{% url 'ChatBot:chat_ia' %}" class="w-12 h-12 block relative flex items-center justify-center">
-            <img src="{% static 'img/unemia.png' %}" alt="Soporte" class="w-full h-full object-contain" />
-            <span class="sr-only">Soporte</span> <!-- Texto accesible para lectores de pantalla -->
-        </a>
-    {% endif %}
-{% endif %}
+		{% if request.resolver_match.view_name != 'ChatBot:chat_ia' %}
+			<!-- Botón de soporte de WhatsApp -->
+			<a href="{% url 'ChatBot:chat_ia' %}" class="w-12 h-12 block relative flex items-center justify-center" onclick="clearLocalStorage()">
+				<img src="{% static 'img/unemia.png' %}" alt="Soporte" class="w-full h-full object-contain" />
+				<span class="sr-only">Soporte</span> <!-- Texto accesible para lectores de pantalla -->
+			</a>
+		{% endif %}
+	{% endif %}
 
 
 
@@ -608,6 +608,13 @@
 	<script src="{% static 'plugin/components/moment/moment.min.js' %}"></script>
 	<script src="{% static 'plugin/components/moment/moment-timezone-with-data.min.js' %}"></script>
 	<script src="{% static 'plugin/whatsapp-chat-support.js' %}"></script>
+
+	<!-- Script que se elimine los datos del local storage -->
+	<script>
+		function clearLocalStorage() {
+			localStorage.clear(); // Borra todo el localStorage
+		}
+	</script>
 
 	<!-- Script para hacer que las notificaciones desaparezcan después de 5 segundos -->
 	<script>
