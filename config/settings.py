@@ -107,23 +107,23 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
-DATABASES = {
-    "default": {
-        'ENGINE': os.environ.get("DB_ENGINE", "django.db.backends.postgresql"),
-        'NAME': os.environ.get("DB_DATABASE", ""),
-        'USER': os.environ.get("DB_USERNAME", ""),
-        'PASSWORD': os.environ.get("DB_PASSWORD", ""),
-        'HOST': os.environ.get("DB_SOCKET", ""),
-        'PORT': os.environ.get("DB_PORT", "5432"),
-        'ATOMIC_REQUESTS': True
-    }
-}
 # DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
+#     "default": {
+#         'ENGINE': os.environ.get("DB_ENGINE", "django.db.backends.postgresql"),
+#         'NAME': os.environ.get("DB_DATABASE", ""),
+#         'USER': os.environ.get("DB_USERNAME", ""),
+#         'PASSWORD': os.environ.get("DB_PASSWORD", ""),
+#         'HOST': os.environ.get("DB_SOCKET", ""),
+#         'PORT': os.environ.get("DB_PORT", "5432"),
+#         'ATOMIC_REQUESTS': True
 #     }
 # }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -194,33 +194,37 @@ LOGIN_URL = '/auth/login/'
 #         },
 #     },
 # }
-import logging
 
-class CustomFormatter(logging.Formatter):
-    def format(self, record):
-        original_msg = super().format(record)
-        return f"\n{'#' * 10} INICIA LOGS {'#' * 10}\n{original_msg}\n{'#' * 10} FINALIZA LOGS {'#' * 10}"
 
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'handlers': {
-        'console': {
-            'level': 'DEBUG',
-            'class': 'logging.StreamHandler',
-            'formatter': 'custom',
-        },
-    },
-    'formatters': {
-        'custom': {
-            '()': CustomFormatter,
-            'format': '%(message)s',
-        },
-    },
-    'loggers': {
-        'django.db.backends': {
-            'level': 'DEBUG',
-            'handlers': ['console'],
-        },
-    },
-}
+
+
+# import logging
+#
+# class CustomFormatter(logging.Formatter):
+#     def format(self, record):
+#         original_msg = super().format(record)
+#         return f"\n{'#' * 10} INICIA LOGS {'#' * 10}\n{original_msg}\n{'#' * 10} FINALIZA LOGS {'#' * 10}"
+#
+# LOGGING = {
+#     'version': 1,
+#     'disable_existing_loggers': False,
+#     'handlers': {
+#         'console': {
+#             'level': 'DEBUG',
+#             'class': 'logging.StreamHandler',
+#             'formatter': 'custom',
+#         },
+#     },
+#     'formatters': {
+#         'custom': {
+#             '()': CustomFormatter,
+#             'format': '%(message)s',
+#         },
+#     },
+#     'loggers': {
+#         'django.db.backends': {
+#             'level': 'DEBUG',
+#             'handlers': ['console'],
+#         },
+#     },
+# }
