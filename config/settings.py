@@ -193,18 +193,18 @@ LOGIN_URL = '/auth/login/'
 #             'handlers': ['console'],
 #         },
 #     },
-# }
+<<<<<<< HEAD
 
-
-
-
+=======
+# # }
 # import logging
-#
+
 # class CustomFormatter(logging.Formatter):
 #     def format(self, record):
 #         original_msg = super().format(record)
 #         return f"\n{'#' * 10} INICIA LOGS {'#' * 10}\n{original_msg}\n{'#' * 10} FINALIZA LOGS {'#' * 10}"
-#
+
+>>>>>>> d1651a1af6148a18fc8ca961cf5977e51d8768e9
 # LOGGING = {
 #     'version': 1,
 #     'disable_existing_loggers': False,

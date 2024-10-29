@@ -35,9 +35,9 @@ const fs = require('fs');
             }
 
             // Guardar la información en un archivo JSON
-            const fileName = 'carreras_presencial.json';
+            const fileName = 'core/webscraping/scraping_scripts/carreras_presencial.json';
             fs.writeFileSync(fileName, JSON.stringify(carreras, null, 2));
-            console.log(`Archivo ${fileName} creado con éxito.`);
+            console.log(`Datos guardados en carreras_presencial.json`);
         } catch (error) {
             console.error(`Error al extraer carreras de la modalidad presencial: ${error.message}`);
         }
@@ -73,7 +73,7 @@ const fs = require('fs');
             }
 
             // Guardar los datos en un archivo JSON
-            fs.writeFileSync('carreras_semipresencial.json', JSON.stringify(carreras, null, 2));
+            fs.writeFileSync('core/webscraping/scraping_scripts/carreras_semipresencial.json', JSON.stringify(carreras, null, 2));
             console.log('Datos guardados en carreras_semipresencial.json');
         } catch (error) {
             console.error('Error al extraer carreras de modalidad semipresencial:', error);
@@ -108,7 +108,7 @@ const fs = require('fs');
             }
 
             // Guardar los datos en un archivo JSON
-            fs.writeFileSync('carreras_en_linea.json', JSON.stringify(carrerasEnLinea, null, 2));
+            fs.writeFileSync('core/webscraping/scraping_scripts/carreras_en_linea.json', JSON.stringify(carrerasEnLinea, null, 2));
             console.log('Datos guardados en carreras_en_linea.json');
         } catch (error) {
             console.error('Error al extraer carreras de modalidad en línea:', error);

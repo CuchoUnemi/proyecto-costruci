@@ -5,27 +5,27 @@ from django.views import View
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 from django.views.generic import TemplateView
-from .chatbot import chatbot_response  # Importar la función de chatbot
+from .chatbot import interactuar_con_usuario  # Importar la función de chatbot
 from .models import ChatSession, Message
 
 
 class ChatBotView(View):
     def post(self, request, *args, **kwargs):
-        print("ChatBotView(View)")
-        print("------------")
+        # print("ChatBotView(View)")
+        # print("------------")
         data = json.loads(request.body)
         message_text = data.get('message', '')
         new_session = data.get('new_session', False)  # Si se debe iniciar una nueva sesión
         session_id = data.get('session_id', None)  # Intentar obtener el session_id del cliente
 
-        chatbot_reply = chatbot_response(message_text)
-        print(f'{data}')
-        print("---------")
-        print(f'{new_session}===new_session')
-        print(f'{session_id}===session_id')
+        chatbot_reply = interactuar_con_usuario(message_text)
+        # print(f'{data}')
+        # print("---------")
+        # print(f'{new_session}===new_session')
+        # print(f'{session_id}===session_id')
         # Verificar si el usuario está autenticado
         if request.user.is_authenticated:
-            print("ChatBotView(View)--------autenticado ")
+            # print("ChatBotView(View)--------autenticado ")
             # Si se solicita una nueva sesión o no existe una sesión activa, crear una nueva
             if new_session or session_id is None:
                 chat_session = ChatSession.objects.create(user=request.user, session_name=message_text[:50])
@@ -35,11 +35,11 @@ class ChatBotView(View):
                 try:
                     chat_session = ChatSession.objects.get(session_id=session_id, user=request.user)
                     users = request.user
-                    print(users)
-                    print("Wwwwwww")
-                    print(session_id)
-                    print("SADASFASDFASDFASDFASDF")
-                    print(f'{chat_session.is_active}; secion activa ')
+                    # print(users)
+                    # print("Wwwwwww")
+                    # print(session_id)
+                    # print("SADASFASDFASDFASDFASDF")
+                    # print(f'{chat_session.is_active}; secion activa ')
 
                     # Verificar si la sesión sigue activa
                     if not chat_session.is_active:
@@ -110,8 +110,8 @@ def get_session_messages(request, session_id):  # poner en el script para el man
             # Filtrar mensajes por la sesión de chat
             messages = Message.objects.filter(chat_session=chat_session).order_by('timestamp')
             messages_data = [{'sender': message.sender, 'text': message.text} for message in messages]
-            print("____________________________")
-            print(messages_data)
+            # print("____________________________")
+            # print(messages_data)
             return JsonResponse({'messages': messages_data, 'session_id': session_id})
         except ChatSession.DoesNotExist:
             return JsonResponse({'messages': [], 'error': 'Chat session not found.'}, status=404)
