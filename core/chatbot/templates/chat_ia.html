@@ -6,65 +6,77 @@
     .chat_support {
         display: none;
     }
-
-    .session-list {
-        max-height: 100%;
-        height: calc(100vh - 16rem);
-        overflow-y: auto;
-        background: none; /* Sin fondo */
-    }
-
-    #chat-container {
-        height: calc(100vh - 16rem);
-    }
-
-    .icon-button {
-        background: none;
-        border: none;
-        cursor: pointer;
-    }
 </style>
 
+<!-- Features -->
 <div class="lg:col-span-6">
-    <div class="relative p-6 bg-white dark:bg-principal shadow-md h-screen">
+    <div class="relative p-6 bg-white dark:bg-principal shadow-md">
+        <!-- Alineación superior -->
+        <div id="general" class="flex ">
 
-        <div id="general" class="flex items-start h-full">
-            <div class="w-1/4 p-4 h-full mt-16">
+            <!-- Barra lateral izquierda para mostrar los nombres de las sesiones -->
+            <div class="w-1/4 bg-gray-200 p-4 h-80 hs-collapse hidden lg:block mt-16">
+                <!-- Margen superior ajustado a 20px -->
                 <div class="flex items-center space-x-2">
-                    <h2 class="text-lg font-semibold text-orange-500 dark:text-orange-500">Historial de sesiones</h2>
-                    <button class="icon-button relative group rounded-md p-2 hover:bg-gray-100 focus:ring focus:ring-gray-200"
-                            onclick="clearLocalStorage()">
-                        <i class="fas fa-comments text-gray-800 dark:text-gray-200"></i>
+                    <h2 class="text-lg font-semibold">Historial de sesiones</h2>
+                    <!-- Botón de nuevo chat con tooltip -->
+                    <button onclick="clearlocol()">
+                        <!-- Ícono de chat -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-800 cursor-pointer" fill="none"
+                             viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                  d="M8 10h.01M12 10h.01M16 10h.01M9 16h6M21 12c0 4.418-3.582 8-8 8a7.963 7.963 0 01-4.917-1.684L3 20l1.684-4.917A7.963 7.963 0 013 12c0-4.418 3.582-8 8-8s8 3.582 8 8z"/>
+                        </svg>
+                        <!-- Texto que aparece al hacer hover (tooltip) -->
                         <span class="absolute left-1/2 transform -translate-x-1/2 -translate-y-full bg-gray-800 text-white text-xs rounded py-1 px-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                             Nuevo chat
                         </span>
                     </button>
                 </div>
-                <ul id="session-list" class="session-list">
-                    {% for session in chat_history %}
-                    <li class="relative mb-2">
-                        <button id="session-button-{{ session.session_id }}"
-                                class="text-left w-full text-sm font-semibold text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-700 py-2 px-3 rounded">
-                            {{ session.session_name }}
-                        </button>
-                        <button class="absolute right-0 top-1/2 transform -translate-y-1/2 px-2 py-1 text-gray-600 dark:text-gray-300 hover:text-gray-800 dark:hover:text-gray-200"
-                                onclick="toggleMenu(event, '{{ session.session_id }}')">
-                            &#x22EE;
-                        </button>
-                        <div id="menu-{{ session.session_id }}"
-                             class="hidden absolute right-0 mt-1 w-32 bg-black text-white py-2 px-3 rounded-lg shadow-lg z-10">
-                            <span class="block mb-1">Opciones</span>
-                            <button class="w-full text-red-600 font-semibold py-1 px-3 rounded hover:bg-red-700 hover:text-white"
-                                    onclick="deleteSession('{{ session.session_id }}')">
-                                Eliminar
-                            </button>
+                <div id="historial_session" class="overflow-y-auto h-64">
+                    <ul id="session-list">
+                        <div>
+                            {% for session in chat_history %}
+                            <!-- Div que contiene el botón de la sesión y el menú de opciones -->
+                            <div id="session-{{ session.session_id }}"
+                                 class="flex items-center w-full relative mb-2 justify-between rounded transition-colors duration-200 hover:bg-gray-300 cursor-pointer"
+                                 onclick="showMessages('{{ session.session_id }}')">
+                                <p class="text-left w-full text-sm font-semibold text-gray-800 py-2 px-3">
+                                    {{ session.session_name }}
+                                </p>
+
+                                <!-- Menú de opciones -->
+                                <div class="relative group">
+                                    <button class="px-2 py-1 text-gray-600 hover:text-gray-800"
+                                            onclick="toggleMenu(event, '{{ session.session_id }}')">
+                                        &#x22EE; <!-- Ícono de tres puntos verticales -->
+                                    </button>
+
+                                    <!-- Tooltip para el botón de tres puntos -->
+                                    <span class="absolute left-1/2 transform -translate-x-1/2 -translate-y-full bg-gray-800 text-white text-xs rounded py-1 px-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                        Opciones
+                                    </span>
+                                </div>
+
+                                <!-- Menú desplegable con opciones -->
+                                <div id="menu-{{ session.session_id }}"
+                                     class="hidden absolute right-0 mt-1 w-32 bg-black text-white py-2 px-3 rounded-lg shadow-lg z-10">
+                                    <span class="block mb-1">Opciones</span>
+                                    <button class="w-full text-red-600 font-semibold py-1 px-3 rounded hover:bg-red-700 hover:text-white"
+                                            onclick="deleteSession(event,'{{ session.session_id }}')">
+                                        Eliminar
+                                    </button>
+                                </div>
+                            </div>
+                            {% endfor %}
                         </div>
-                    </li>
-                    {% endfor %}
-                </ul>
+                    </ul>
+                </div>
             </div>
 
-            <div id="chat-container" class="flex-grow px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
+            <!-- Contenedor del chat -->
+            <div id="chat-container" class="flex-grow max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
+                <!-- Header del Chatbot -->
                 <div class="flex items-center mb-4">
                     <img src="{% static 'img/mmmmmmmmmmmmmmm.jpg' %}" alt="Avatar de UnemIA"
                          class="w-10 h-10 rounded-full mr-3">
@@ -75,7 +87,9 @@
                     </div>
                 </div>
 
-                <div id="chatbox" class="bg-gray-100 dark:bg-gray-900 p-4 h-96 overflow-y-auto rounded-lg flex flex-col">
+                <!-- Chatbox -->
+                <div id="chatbox" class="bg-gray-100 dark:bg-gray-900 p-4 h-96 overflow-y-auto rounded-lg">
+                    <!-- Mensaje de bienvenida del bot -->
                     <div class="flex items-start mb-4">
                         <img src="{% static 'img/mmmmmmmmmmmmmmm.jpg' %}" alt="Avatar de UnemIA"
                              class="w-6 h-6 rounded-full mr-2">
@@ -83,20 +97,28 @@
                     </div>
                 </div>
 
-                <div class="mt-4 flex">
+                <!-- Input para el mensaje y botón -->
+                <div id="id_mensaje" class="mt-4 flex">
                     <form id="chat-form" method="post" style="display: none;">
                         {% csrf_token %}
                     </form>
 
+                    <label for="chat-input"></label>
                     <input id="chat-input" type="text"
-                           class="w-full p-3 border-2 border-gray-300 rounded-l-lg focus:outline-none dark:bg-gray-800 dark:text-gray-200"
-                           placeholder="Escribe tu mensaje..."
-                           style="outline: none;">
-
+                           class="w-full p-3 border border-gray-300 dark:border-gray-700 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-orange-500 dark:focus:ring-orange-300"
+                           placeholder="Escribe tu mensaje...">
                     <button id="send-button"
-                            class="py-3 px-4 bg-orange-500 text-white rounded-r-lg hover:bg-orange-600 dark:bg-orange-400 dark:hover:bg-orange-500 flex items-center">
-                        <i class="fas fa-paper-plane mr-2"></i> <!-- Icono de avión de papel -->
+                            class="py-3 px-4 bg-orange-500 text-white rounded-r-lg hover:bg-orange-600 dark:bg-orange-400 dark:hover:bg-orange-500">
                         Enviar
+                    </button>
+                </div>
+
+                <!-- Nuevo div que se muestra tras el error 403 -->
+                <div id="error-message" class="mt-4 hidden">
+                    <p class="text-red-500">La sesión ha expirado o está inactiva. Por favor, inicia un nuevo chat.</p>
+                    <button class="py-3 px-4 bg-blue-500 text-white rounded-lg hover:bg-blue-600 "
+                            onclick="clearlocol()">
+                        Iniciar nuevo chat
                     </button>
                 </div>
             </div>
@@ -153,7 +175,6 @@
                     </div>
                 `;
                 addMessageToChatbox(typingIndicator);
-                console.log("Iniciando llamada al chatbot...");
 
                 // Enviar mensaje al chatbot
                 fetch('{% url "ChatBot:chatbot_api" %}', {
@@ -429,7 +450,7 @@
         }
     }
 
-    function clearLocalStorage() { // para eliminar el historial del localstore y cree nuevos chats
+    function clearlocol() { // para eliminar el historial del localstore y cree nuevos chats
         console.log("Botón de nuevo chat clicado.");
         const mensajeDiv = document.getElementById('id_mensaje');
         const newChatButton = document.getElementById('error-message');
@@ -449,5 +470,27 @@
         `;
         }
     }
+</script>
+<script>
+    document.querySelector(".new-chat-btn").addEventListener("click", function() {
+        console.log("Botón de nuevo chat clicado.");
+        const mensajeDiv = document.getElementById('id_mensaje');
+        const newChatButton = document.getElementById('error-message');
+        // Ocultar el mensaje de error y mostrar el mensaje normal
+        newChatButton.classList.add('hidden');  // Ocultar el botón de error.
+        mensajeDiv.classList.remove('hidden');  // Mostrar el div de mensajes.
+
+        // Función para limpiar el localStorage
+        localStorage.clear();  // Limpia todo el localStorage
+        const chatbox = document.getElementById('chatbox');  // Asegúrate de tener la referencia correcta
+        if (chatbox) {
+            chatbox.innerHTML = `
+            <div class="flex items-start mb-4">
+                <img src="{% static 'img/mmmmmmmmmmmmmmm.jpg' %}" alt="Avatar de UnemIA" class="w-6 h-6 rounded-full mr-2">
+                <div class="text-sm text-gray-500 dark:text-gray-400">¡Hola! ¿Cómo puedo ayudarte hoy?</div>
+            </div>
+        `;
+        }
+    });
 </script>
 {% endblock content %}

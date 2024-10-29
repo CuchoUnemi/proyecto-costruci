@@ -1,5 +1,9 @@
 {
-    "software": 7,
+    "software": 15,
     "educación": 3,
-    "biotecnología": 1
+    "biotecnología": 4,
+    "medicina": 4,
+    "derecho": 1,
+    "economía": 1,
+    "psicología": 1
 }
