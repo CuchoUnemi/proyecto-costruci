@@ -124,3 +124,8 @@ Este proyecto utiliza la API de OpenAI para el procesamiento de lenguaje natural
 
 ## Licencia
 Este proyecto está licenciado bajo la CUCHO-STORE. 
+<h2>Video Tutorial</h2>
+
+<p>Mira este video para aprender a utilizar UNEMI-IA:</p>
+<iframe width="560" height="315" src="https://youtu.be/Q9Pfgx0l3es?si=M1nzEgV1nR4aBMzc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
