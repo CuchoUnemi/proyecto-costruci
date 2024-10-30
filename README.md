@@ -130,5 +130,6 @@ Este proyecto está licenciado bajo la CUCHO-STORE.
 
 Mira este video para aprender a utilizar UNEMI-IA:
 
-[![Video Tutorial](https://img.youtube.com/vi/O9PfgxOl3es/0.jpg)](https://youtu.be/Q9Pfgx0l3es?si=M1nzEgV1nR4aBMzc)
+[![Video Tutorial](https://img.youtube.com/vi/Q9Pfgx0l3es/0.jpg)](https://youtu.be/Q9Pfgx0l3es?si=M1nzEgV1nR4aBMzc)
+
 
