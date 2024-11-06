@@ -84,9 +84,6 @@ Inicia el servidor de desarrollo de Django:
 
 El servidor estará disponible en [http://127.0.0.1:8000/](http://127.0.0.1:8000/).
 
-### Configurar la API de OpenAI
-Este proyecto utiliza la API de OpenAI para el procesamiento de lenguaje natural. Asegúrate de configurar correctamente la clave API en el archivo `.env`.
-
 ## Flujo del Sistema
 
 ### Registro e inicio de sesión
